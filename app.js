@@ -117,14 +117,14 @@ function startHTTP(){
         };
     });
     
-    startSocket();
+    startSocket(server);
 };
 
-function startSocket(){
+function startSocket(server){
     
-    var app = io.listen(socketPort);
+    var app = io.listen(server);
     
-    log('Socket - Listening on port: ' + socketPort); 
+    log('Socket - Listening on port: ' + httpPort); 
     
     app.sockets.on('connection', function(s){ // s - socket
         
@@ -139,7 +139,6 @@ function startSocket(){
         });
         
     });
-    
 };
 
 
