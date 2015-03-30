@@ -14,6 +14,7 @@ var knox = require('knox');
 var panic = require('./cust/panic.js');
 var date = require('./cust/date.js');
 var conf = require('./cust/conf.js');
+var api = require('./cust/API.js');
 
 //Global Variables
 var tier,
@@ -74,7 +75,9 @@ function confAdditions(){
 
 //Post-Setup Functions
 function processConfig(config){
-    
+        
+    startHTTP();  
+
     tier = config.tier;
     tierPass= config.tierPass;
     domain = config.domain;
@@ -86,6 +89,8 @@ function processConfig(config){
         accessKeyId     : config.r53ID,
         secretAccessKey : config.r53Pass
     });
+    
+    updateIP();
 //Set up DynamoDB as ddb
     ddb = DynamoDB.ddb({ 
         accessKeyId: config.dynamoID,
@@ -97,8 +102,6 @@ function processConfig(config){
       , secret: config.s3Pass
       , bucket: config.s3Bucket
     });
-    
-    startHTTP();    
 };
 
 
@@ -129,20 +132,46 @@ function startSocket(server){
     app.sockets.on('connection', function(s){ // s - socket
         
         socketCount += 1;
-        console.log(socketCount.toString() );
-        
         
         s.on('disconnect', function(){
             socketCount -= 1;
         });
+        api( s, s3, ddb );
         
-        s.on('message', function(data){
-            console.log(data); 
-        });
         
     });
 };
 
+function updateIP(){
+    
+    var oneOff = false;
+    
+    getIP(function(err, ip){
+        if(oneOff === false){
+            oneOff = true;
+            
+            if(err){
+                panic.exit(err);  
+            }else{
+                var args = {
+                    zoneId : domainID,
+                    name   : tier + "." + domain,
+                    type   : 'A',
+                    ttl    : 300,
+                    values : [ ip ]
+                };
+
+                r53.setRecord(args, function(err, res) { //update r53 with our external ip, because we are the new load balancer.
+                    if(err){
+                        panic.exit(err); //if we couldn't update r53, call that a fatal error.
+                    }else{
+                        log(tier + " IP Address is now: " + ip);
+                    };
+                });
+            };
+        };
+    });
+};
 
 //Mundane
 
