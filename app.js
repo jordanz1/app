@@ -129,6 +129,8 @@ function startSocket(server){
     app.sockets.on('connection', function(s){ // s - socket
         
         socketCount += 1;
+        console.log(socketCount.toString() );
+        
         
         s.on('disconnect', function(){
             socketCount -= 1;
