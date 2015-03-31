@@ -110,6 +110,10 @@ function processConfig(config){
 function startHTTP(){
     
     var server = http.createServer(function(req, res){
+        // get request attributes
+        var query = url.parse(req.url, true).query;
+        console.log("Searching for '" + query.term + "'");
+
         // send response
         res.writeHead(200, {
             // prepares response as JSONP
