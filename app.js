@@ -110,10 +110,6 @@ function processConfig(config){
 function startHTTP(){
     
     var server = http.createServer(function(req, res){
-        // get request attributes
-        var query = url.parse(req.url, true).query;
-        console.log("Searching for '" + query.term + "'");
-
         // send response
         res.writeHead(200, {
             // prepares response as JSONP
@@ -126,8 +122,8 @@ function startHTTP(){
         });
         // this is trickery specific to JSONP,
         //     see below for more info
-        res.end(query.callback + "(" + results + ")");
-        console.log("\nResponded with '" + results + "'");
+        res.end(query.callback + "(" + socketCount.toString() + ")");
+        console.log("\nResponded with '" + socketCount.toString() + "'");
     });
     
     server.listen(httpPort, function(err){

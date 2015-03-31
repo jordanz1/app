@@ -14,8 +14,8 @@ $(document).ready(function() {
         url: "http://tier1.limaea.com",
         dataType: "jsonp",
         type: "GET",
-        success: function (dataArr) {
-            alert(dataArr.results);
+        success: function (data) {
+            alert(data);
         },
         error: function(err){
             alert(err);   
