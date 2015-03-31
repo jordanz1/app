@@ -158,7 +158,8 @@ function updateIP(){
                 dns.resolve4(tier + '.' + domain, function (err, address) {
                 
                     var tierIP = JSON.stringify(address);
-
+                    console.log(tierIP);
+                    console.log(ip);
                     if(tierIP != ip){
 
                         var args = {
