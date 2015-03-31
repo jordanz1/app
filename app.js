@@ -153,19 +153,28 @@ function updateIP(){
             if(err){
                 panic.exit(err);  
             }else{
-                var args = {
-                    zoneId : domainID,
-                    name   : tier + "." + domain,
-                    type   : 'A',
-                    ttl    : 300,
-                    values : [ ip ]
-                };
+                
+                dns.resolve4(tier + '.' + domain, function (err, address) {
+                
+                    var tierIP = JSON.stringify(address);
 
-                r53.setRecord(args, function(err, res) { //update r53 with our external ip, because we are the new load balancer.
-                    if(err){
-                        panic.exit(err); //if we couldn't update r53, call that a fatal error.
-                    }else{
-                        log(tier + " IP Address is now: " + ip);
+                    if(tierIP != ip){
+
+                        var args = {
+                            zoneId : domainID,
+                            name   : tier + "." + domain,
+                            type   : 'A',
+                            ttl    : 300,
+                            values : [ ip ]
+                        };
+
+                        r53.setRecord(args, function(err, res) { //update r53 with our external ip, because we are the new load balancer.
+                            if(err){
+                                panic.exit(err); //if we couldn't update r53, call that a fatal error.
+                            }else{
+                                log(tier + " IP Address is now: " + ip);
+                            };
+                        });
                     };
                 });
             };
