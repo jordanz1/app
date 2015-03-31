@@ -52,7 +52,6 @@ function confAdditions(){
     
     //Add configuration variables to lookup table
     conf.add('tier');
-    conf.add('tierPass');
     conf.add('domain');
     conf.add('domainID');
     conf.add('region');
@@ -124,7 +123,7 @@ function startHTTP(){
         res.end(query.callback + "(" + socketCount.toString() + ")");
         
         
-        log('request for socket count');
+        log('request for socket count: ' + socketCount.toString() );
     });
     
     server.listen(httpPort, function(err){
