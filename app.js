@@ -109,6 +109,7 @@ function processConfig(config){
 function startHTTP(){
     
     var server = http.createServer(function(req, res){
+        log("request");
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(socketCount.toString() );
     });
