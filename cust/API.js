@@ -1,6 +1,21 @@
-function api( socket, s3, ddb ){
+var bcrypt = require('bcrypt');
+
+var start = new Date().getTime();
+
+function api( s, s3, ddb ){
     
-    console.log("In api");
+    s.on('message', function(data){
+        log(data); 
+    });
+    
+};
+
+
+//Mundane
+
+function log(message){
+
+    console.log("\n\n" + message);
     
 };
 

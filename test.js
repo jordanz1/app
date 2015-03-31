@@ -1,11 +1,18 @@
-var ioClient = require('socket.io-client');
+var io = require('socket.io-client');
 
+var socket = io.connect('http://tier1.limaea.com');
 
-for(var i=0; i<5000; i++){
+socket.on('connect', function(){
     
-    var sockets = ioClient.connect('http://localhost',{'force new connection': true});
+    console.log('connection made');
     
-    sockets.on('connect', function(){
-        console.log("hi"); 
-    });
-};
+    socket.send('hello master');
+    
+});
+
+socket.on('disconnect', function(){
+    
+    console.log('disconnected');
+    
+});
+
