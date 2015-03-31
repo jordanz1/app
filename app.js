@@ -155,10 +155,9 @@ function updateIP(){
                 panic.exit(err);  
             }else{
                 
-                dns.resolve4(tier + '.' + domain, function (err, address) {
+                dns.resolve4(tier + '.' + domain, function (err, addresses) {
                 
-                    var tierIPArr = JSON.stringify(address);
-                    var tierIP = tierIPArr[0];
+                    var tierIP = addresses[0];
                     console.log(tierIP);
                     console.log(ip);
                     if(tierIP != ip){
