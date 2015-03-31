@@ -3,6 +3,7 @@ var start = new Date().getTime();
 //Native requires
 var http = require('http');
 var dns = require('dns');
+var url = require('url');
 
 //node_module requires
 var io = require('socket.io');
