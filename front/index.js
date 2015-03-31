@@ -1,17 +1,24 @@
-$(window).load(function() {
+$(document).ready(function() {
 
     var t1 = io.connect('tier1.limaea.com');
         
     t1.on('connect', function(){
         
-        //$('h1').text("Connected");
+        $('h1').text("Connected");
         
     });
     
+    var url = "http://tier1.limaea.com";
     
-    $.get( "http://tier1.limaea.com", function( data ) {
-        
-        $('h1').text(data);
-        
+    $.ajax({
+        url: "http://tier1.limaea.com",
+        dataType: "jsonp",
+        type: "GET",
+        success: function (dataArr) {
+            alert(dataArr.results);
+        },
+        error: function(err){
+            alert(err);   
+        }
     });
 });

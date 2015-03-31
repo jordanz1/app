@@ -109,9 +109,24 @@ function processConfig(config){
 function startHTTP(){
     
     var server = http.createServer(function(req, res){
-        log("request");
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(socketCount.toString() );
+        // get request attributes
+        var query = url.parse(req.url, true).query;
+        console.log("Searching for '" + query.term + "'");
+
+        // send response
+        res.writeHead(200, {
+            // prepares response as JSONP
+            "content-type": "application/json"
+        });
+        // call to stringify to prepare outgoing object
+        var results = JSON.stringify({
+            
+            results: socketCount.toString()
+        });
+        // this is trickery specific to JSONP,
+        //     see below for more info
+        res.end(query.callback + "(" + results + ")");
+        console.log("\nResponded with '" + results + "'");
     });
     
     server.listen(httpPort, function(err){
