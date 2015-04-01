@@ -1,5 +1,4 @@
 body{
-    background-color: white;
     margin: 0;
 }
 
@@ -12,8 +11,10 @@ body{
 }
 
 #signup-jumbo{
-    max-width: 950px;
-    background-color:coral;
+    box-shadow:         3px 3px 15px 15px #ccc;
+    width: 98%;
+    max-width: 850px;
+    background-color:#C26727;
     color:white;
     font-family: 'Lora', serif;
     text-align: center;
@@ -26,8 +27,8 @@ body{
 }
 
 #interest{
-    padding-left: 45px;
-    padding-right: 45px;
+    padding-left: 60px;
+    padding-right: 60px;
     font-size: 17px;
     margin-bottom: 10px;
 }
@@ -36,6 +37,21 @@ body{
     text-align: center;
     font-size: 17px;
     width: 100%;
+    margin-top: 10px;
+}
+
+#interest-drop{
+    width: 100%;   
+}
+
+#lastDiv{
+    width: 47%;
+    float: right;
+}
+
+#firstDiv{
+    width: 47%; 
+    float: left;
 }
 
 #signupForm label{
@@ -60,6 +76,10 @@ body{
     
     #signup{
         margin-top: 10px;   
+    }
+    
+    #signup-jumbo{
+        box-shadow:none; 
     }
     
     #signup-jumbo legend{

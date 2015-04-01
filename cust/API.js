@@ -14,7 +14,8 @@ function api( s, s3, ddb ){
     s.on('signUpSubmit', function(userObj){
         
         console.log(userObj.interest);
-        console.log(userObj.name);
+        console.log(userObj.firstName);
+        console.log(userObj.lastName);
         console.log(userObj.email);
         console.log(userObj.password);
     });

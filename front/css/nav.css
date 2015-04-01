@@ -38,13 +38,9 @@
 }
 
 #right-nav li{
-    font-size: 26px;
+    font-size: 24px;
     font-family: 'Lora', serif;
-    margin-right: 25px;
-}
-
-#right-nav li input{
-    font-size: 15px;   
+    margin:0;
 }
 
 footer{
@@ -96,11 +92,11 @@ footer li{
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #2b8166;
+  background-color: #006e79;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #ffffff;
-  background-color: #2b8166;
+  background-color: #006e79;
 }
 .navbar-default .navbar-toggle {
   border-style: none;
@@ -158,14 +154,19 @@ footer li{
       font-size: 20px;
       background-color: #006e79;
       padding:0;
+      margin-top: 10px;
       margin-left: 1%;
       margin-right: 1%;
       width: 98%; 
   }
-    #right-nav li button{
+    
+  #right-nav li li{
+      margin-top: 17px;
+      font-size: 20px;
+      height: 35px;
       
-      height: 40px;
-    }
+  }
+    
   footer div ul{
       padding: 0;
       text-align:center;
@@ -182,6 +183,6 @@ footer li{
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color: #2b8166;
+    background-color:#006e79;
   }
 }

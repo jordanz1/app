@@ -41,6 +41,14 @@
 
 
                     <ul class="nav navbar-nav navbar-right" id="right-nav">
+                        <li class="dropdown">
+                            <a href="/browse.html" data-toggle="dropdown" class="dropdown-toggle">Browse</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/cohort.html">Events</a></li>
+                                <li><a href="/cohort.html">Cohorts</a></li>
+                                <li><a href="/cohort.html">Technologies</a></li>
+                            </ul>
+                        </li>
                         <li><a href="/login.html">Log In</a></li>
                     </ul>
               </div>
@@ -51,11 +59,11 @@
                 <center><div class="jumbotron" id="signup-jumbo">
                 
                     <div id="legend">
-                        <legend class="">Sign up for <span style="font-family: 'Kaushan Script', cursive;">ArchiTech</span>!</legend>
+                        <legend class="">Sign up for <span style="font-family: 'Kaushan Script', cursive;">ArchiTech!</span></legend>
                     </div>
                     
                     <div class="btn-group"><center>
-                        <a class=" form-btn btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" id="interest">Describe your Interest <span class="caret"></span></a>
+                        <a class=" form-btn btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" id="interest">Describe your Interest<span class="caret"></span></a>
                         <ul class="dropdown-menu" id="interest-drop">
                                 <li><a >Cohort</a></li>
                                 <li><a >Researcher</a></li>
@@ -64,8 +72,15 @@
                     </center> </div>
                     
                     <div class="control-group" id="signupForm">
-                            <label class="control-label">Name</label>
-                            <input type="text" id="signupName" placeholder="John Doe" class="form-control">
+                            <div id="firstDiv">
+                                <label class="control-label">First Name</label>
+                                <input type="text" id="signupLastName" placeholder="Doe" class="form-control">
+                            </div>
+                        
+                            <div id="lastDiv">
+                                <label class="control-label">Last Name</label>
+                                <input type="text" id="signupFirstName" placeholder="John" class="form-control">
+                            </div>
                             <label class="control-label">Email Address</label>
                             <input type="text" id="signupEmail" placeholder="example@example.org" class="form-control">
                             <label class="control-label">Password</label>
@@ -73,7 +88,7 @@
                             <label class="control-label">Repeat Password</label>
                             <input type="password" id="signupPassCheck" placeholder="" class="form-control">
                             <p id="signup-pass-result"></p>
-                            <button id="signupButton" onClick="submitSignup()">Submit</button>
+                            <button id="signupButton" onClick="submitSignup()">Sign Up</button>
                     </div>
                     
                 </div></center>
@@ -85,8 +100,6 @@
                 <div class="container">
                     <ul class="nav navbar-nav navbar-left">
 
-                        <li><a href="/copyright.html">Copyright 2015</a></li>
-                        <li><a href="/copyright.html">Copyright 2015</a></li>
                         <li><a href="/copyright.html">Copyright 2015</a></li>
                     </ul>
 
