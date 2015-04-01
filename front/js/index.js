@@ -57,8 +57,14 @@ function submitSignup(){
                     s.on('signUpReceived', function(returnBool){
                         if(returnBool === true){
                             
-                            $('#signup-pass-result').css('color', '#A3CFC9');
-                            $('#signup-pass-result').html("<b>Sign Up Request Sucessful. We will contact you by email when an administrator has verified you.</>");
+                            var firstName = $('#signupFirstName').val();
+                            
+                            $('#signup-pass-result').css('color', 'white');
+                            $('#signup-pass-result').html("<b>" + firstName +  ", Your sign up request was completed sucessfully. We will contact you by email when you have been verified by an administrator.</>");
+                            $('#signupForm input').remove();
+                            $('#signupForm label').remove();
+                            $('#signupForm button').remove();
+                            $('#interestDiv').remove();
                             
                         }else if(returnBool === false){
                            $('#signup-pass-result').css('color', '#CFA3A9');

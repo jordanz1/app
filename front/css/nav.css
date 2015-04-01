@@ -18,6 +18,9 @@
 }
 
 #search{
+    border-style: solid;
+    border-color: #777;
+    border-width: 1px;
     width:300px;
     padding: 0;
     padding-left: 15px;
@@ -28,6 +31,9 @@
 }
 
 #search-button{
+    border-style: solid;
+    border-color: #777;
+    border-width: 1px;
     margin-top: 8px;
     margin-left: 5px;
     width:70px;
@@ -41,17 +47,6 @@
     font-size: 24px;
     font-family: 'Lora', serif;
     margin:0;
-}
-
-footer{
-    color: #FFFFFF;
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-footer li{
-    margin-right: 25px;   
 }
 
 .navbar-default {
@@ -165,15 +160,6 @@ footer li{
       font-size: 20px;
       height: 35px;
       
-  }
-    
-  footer div ul{
-      padding: 0;
-      text-align:center;
-  }   
-  footer div ul li{
-    padding: 0;
-    margin-right: 0;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;

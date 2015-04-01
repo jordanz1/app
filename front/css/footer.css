@@ -1,0 +1,24 @@
+footer{
+    color: #FFFFFF;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+footer li{
+       
+}
+
+
+@media (max-width: 767px) {
+    
+    footer div ul{
+        padding: 0;
+        text-align:center;
+    } 
+    
+    footer div ul li{
+        padding: 0;
+        margin-right: 0;
+    }
+}

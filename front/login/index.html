@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ArchiTech</title>
+        <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        
+        <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+        
+        <link rel="stylesheet" type="text/css" href="/css/footer.css" media="screen" />
+        
+        <link rel="stylesheet" type="text/css" href="/css/login.css" media="screen" />
+        
+    </head>
+    
+    <body>
+
+        <div class="container" id="login">
+        
+            <center><div class="jumbotron" id="login-jumbo"> 
+                
+                <h1><span style="font-family: 'Kaushan Script', cursive;">Architech</span></h1>
+                
+                <div id="legend">
+                        <legend>Please Log In below.</legend>
+                </div>
+                    
+                <div class="control-group">
+                    <p id="loginResult"></p>
+                    <label class="form-label">Email:</label>
+                    <input type="text" class="form-control" id="loginEmail" placeholder="example@example.org" >
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control"id="loginPass" placeholder="password" >
+                    <button id="loginButton" onClick="attemptLogin();" >Log In!</button>
+                
+                </div>
+
+            </div></center>
+        </div>
+        
+        <footer class="navbar navbar-nav navbar-inverse navbar-fixed-bottom">
+            <div class="container">
+                <ul class="nav navbar-nav navbar-left">
+
+                    <li><a href="/copyright.html">Copyright 2015</a></li>
+                </ul>
+            </div>
+        </footer>
+    </body>
+            
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script>var s, connected=false;</script>
+        <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/login.js"></script>
+    
+</html>

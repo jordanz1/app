@@ -3,28 +3,27 @@ var bcrypt = require('bcrypt');
 var start = new Date().getTime();
 
 function api( s, s3, ddb ){
-    
-    s.on('message', function(data){
-        log(data); 
+    s.on('pageType', function(type){
+        
+        if(type == "homepage"){
+        
+            //Sends back autocomplete search results 
+            s.emit('searchAutoResults', [{'name':'', 'link':''}]);
+
+            s.on('signUpSubmit', function(userObj){
+
+                console.log(userObj.interest);
+                console.log(userObj.firstName);
+                console.log(userObj.lastName);
+                console.log(userObj.email);
+                console.log(userObj.password);
+
+                s.emit('signUpReceived', true);
+
+            });
+            
+        };
     });
-    
-    //Sends back autocomplete search results
-    s.emit('searchAutoResults', [{'name':'yes', 'link':'this works'}]);
-    
-    s.on('signUpSubmit', function(userObj){
-        
-        console.log(userObj.interest);
-        console.log(userObj.firstName);
-        console.log(userObj.lastName);
-        console.log(userObj.email);
-        console.log(userObj.password);
-        
-        s.emit('signUpReceived', true);
-        
-    });
-    
-    
-    console.log("emitted");
 };
 
 

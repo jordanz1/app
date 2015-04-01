@@ -6,33 +6,20 @@ $(document).ready(function() {
     tierTrigger();
 });
 
-//Navbar setup
 
 // Setup Socket Connection (tierTrigger) - - - under here
 
 function tierTrigger(){
     
-    var start = new Date().getTime();
+    getSocketCount('tier1', function(numbOfSockets){
+        
+        compareCount('tier1', numbOfSockets);
+    });
+    getSocketCount('tier2', function(numbOfSockets){
+        
+        compareCount('tier2', numbOfSockets);
+    });
     
-    for(var i=0; i<3; i++){
-        getSocketCount('tier1', function(numbOfSockets){
-
-            var current = new Date().getTime();
-
-            var amountOfTime = current - start;
-
-            storeTierData('tier1', amountOfTime, numbOfSockets);
-        });
-
-        getSocketCount('tier2', function(numbOfSockets){
-
-            var current = new Date().getTime();
-
-            var amountOfTime = current - start;
-
-            storeTierData('tier2', amountOfTime, numbOfSockets);
-        });
-    };
 };
 
 function getSocketCount(tier, cb){
@@ -48,65 +35,36 @@ function getSocketCount(tier, cb){
     };
 };
 
-var tier1Time = [];
-var tier1Count = [];
+var holdTier;
+var holdCount;
+var holding = false;
 
-var tier2Time = [];
-var tier2Count = [];
-
-var round = 0;
-
-function storeTierData(name, time, count){
+function compareCount(tier, count){
     
-    if(name === "tier1"){
-        tier1Time[tier1Time.length] = time;
-        tier1Count[tier1Count.length] = time;
-        round +=1;
-        if(round === 6){
-            processTierData();
-            round = 0;
-        };
-    }else if(name === "tier2"){
-        tier2Time[tier2Time.length] = time;
-        tier2Count[tier2Count.length] = time;
-        round +=1;
-        if(round === 6){
-            processTierData();
-            round = 0;
-        };
-    };
-};
-
-
-function processTierData(){
-    
-    var totalTier1Time =0;
-    var totalTier2Time =0;
-    var totalTier1Count =0;
-    var totalTier2Count =0;
-    
-    for(var i=0; i<3; i++){
+    if(holding === false){
+        holdTier = tier;
+        holdCount = count;
+        holding = true;
         
-        totalTier1Time += tier1Time[i];
-        totalTier1Count += tier1Count[i];
-        totalTier2Time += tier2Time[i];
-        totalTier2Count += tier2Count[i];
-    };
-    
-    var totalTier1Time = totalTier1Time / 3; 
-    var totalTier2Time = totalTier2Time / 3;
-    var totalTier1Count = totalTier1Count / 3;
-    var totalTier2Count = totalTier2Count / 3;
-    
-    var tier1Val = 5000 - totalTier1Time - (totalTier1Count *10);
-    var tier2Val = 5000 - totalTier2Time - (totalTier2Count *10);
-    
-    if(tier1Val > tier2Val){
-        socketTrigger('tier1');
+        setTimeout(function(){
+            if(holding === true){
+                socketTrigger(holdTier);
+                holding = false;
+            };
+        }, 3000);
+        
     }else{
-        socketTrigger('tier2');
-    };
-};
+        holding = false;
+        if(holdCount > count){
+            socketTrigger(tier);
+        }else{
+            socketTrigger(holdTier);
+        };
+        
+    }
+    
+});
+
 
 function socketTrigger(tierName){
     
@@ -114,29 +72,9 @@ function socketTrigger(tierName){
     
     s.on('connect', function(){
         
-        onConnection(s);
         connected = true;
         
+        s.emit('pageType', pageType);
+        
     });   
-};
-
-
-// Socket has been setup successfully - - - under here
-
-function onConnection(){
-    
-    //Autocomplete search results in nav bar event
-    s.on('searchAutoResults', function(autoArr){
-        
-        //Get rid of existing results
-        $('#search-drop li').remove();  
-        
-        //add in new results
-        for(var i=0; i<autoArr.length; i++){ 
-            $('#search-drop').append('<li><a href="/search/' +autoArr[i].link+ '">' +autoArr[i].name+ '</a><li>');
-        };
-    });
-    
-    
-    
 };

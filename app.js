@@ -121,9 +121,6 @@ function startHTTP(){
         var query = url.parse(req.url, true).query;
         
         res.end(query.callback + "(" + socketCount.toString() + ")");
-        
-        
-        log('request for socket count: ' + socketCount.toString() );
     });
     
     server.listen(httpPort, function(err){
