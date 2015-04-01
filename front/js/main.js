@@ -1,15 +1,12 @@
 var domain = "limaea.com";
 
 $(document).ready(function() {
-    
-    
+
     
     tierTrigger();
 });
 
-//Nav Bar - - - under here
-
-
+//Navbar setup
 
 // Setup Socket Connection (tierTrigger) - - - under here
 
@@ -113,11 +110,12 @@ function processTierData(){
 
 function socketTrigger(tierName){
     
-    var s = io.connect('http://' + tierName +'.'+ domain, {'force new connection': true});
+    s = io.connect('http://' + tierName +'.'+ domain, {'force new connection': true});
     
     s.on('connect', function(){
         
-        onConnection(s); 
+        onConnection(s);
+        connected = true;
         
     });   
 };
@@ -125,19 +123,20 @@ function socketTrigger(tierName){
 
 // Socket has been setup successfully - - - under here
 
-function onConnection(s){
+function onConnection(){
     
-    s.send('hello master');
-    
+    //Autocomplete search results in nav bar event
     s.on('searchAutoResults', function(autoArr){
         
-        //var numbOfItems = $('#search-drop li').length;
+        //Get rid of existing results
+        $('#search-drop li').remove();  
         
-            $('#search-drop li').parent().remove();  
-        
+        //add in new results
         for(var i=0; i<autoArr.length; i++){ 
-            $('#search-drop').append('<li><a href="' +autoArr[i].link+ '">' +autoArr[i].name+ '</a><li>');
+            $('#search-drop').append('<li><a href="/search/' +autoArr[i].link+ '">' +autoArr[i].name+ '</a><li>');
         };
     });
+    
+    
     
 };

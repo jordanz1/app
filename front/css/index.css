@@ -1,0 +1,69 @@
+body{
+    background-color: white;
+    margin: 0;
+}
+
+#signup {
+    width: 100%;
+    padding: 0;
+    margin-top: 30px;
+    margin-bottom: 0;
+    
+}
+
+#signup-jumbo{
+    max-width: 950px;
+    background-color:coral;
+    color:white;
+    font-family: 'Lora', serif;
+    text-align: center;
+}
+
+#signup-jumbo legend{
+    color:white;
+    font-size: 50px;
+    
+}
+
+#interest{
+    padding-left: 45px;
+    padding-right: 45px;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+#interest-drop li{
+    text-align: center;
+    font-size: 17px;
+    width: 100%;
+}
+
+#signupForm label{
+    font-size: 25px;
+}
+#signupForm input{
+    margin-bottom: 15px;
+    font-size: 19px;
+    text-align: center;
+}
+#signupForm button{
+    background-color: white;
+    color:black;
+    font-size: 22px;
+    width: 100%;
+    max-width: 500px;
+    height:40px;
+    border: none;
+}
+
+@media (max-width: 767px) {
+    
+    #signup{
+        margin-top: 10px;   
+    }
+    
+    #signup-jumbo legend{
+        font-size: 35px;   
+    }
+    
+}
