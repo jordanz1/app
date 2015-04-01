@@ -8,7 +8,7 @@ function api( s, s3, ddb ){
         log(data); 
     });
     
-    s.emit('searchAuto', ['hello', 'world']);
+    s.emit('searchAutoResults', [{'name':'hello', 'link':'world'}]);
     
     console.log("emitted");
 };

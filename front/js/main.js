@@ -4,7 +4,7 @@ $(document).ready(function() {
     
     
     
-    //tierTrigger();
+    tierTrigger();
 });
 
 //Nav Bar - - - under here
@@ -104,8 +104,6 @@ function processTierData(){
     var tier1Val = 5000 - totalTier1Time - (totalTier1Count *10);
     var tier2Val = 5000 - totalTier2Time - (totalTier2Count *10);
     
-    $('h1').text(tier1Val + '::' + tier2Val);
-    
     if(tier1Val > tier2Val){
         socketTrigger('tier1');
     }else{
@@ -119,17 +117,17 @@ function socketTrigger(tierName){
     
     s.on('connect', function(){
         
-        $('h2').text("Connected to: " + tierName);
+        onConnection(s); 
         
-    });
-    
-    onConnection(s);    
+    });   
 };
 
 
 // Socket has been setup successfully - - - under here
 
 function onConnection(s){
+    
+    s.send('hello master');
     
     s.on('searchAuto', function(autoArr){
         
@@ -139,7 +137,7 @@ function onConnection(s){
     
         
         for(var i=0; i<autoArr.length; i++){ 
-            $('#search-drop').append(autoArr[i]);
+            $('#search-drop').append('<li><a href="' +autoArr[i].link+ '">' +autoArr[i].name+ <li>');
         };
     });
     
