@@ -18,6 +18,9 @@ function api( s, s3, ddb ){
         console.log(userObj.lastName);
         console.log(userObj.email);
         console.log(userObj.password);
+        
+        s.emit('signUpReceived', true);
+        
     });
     
     
