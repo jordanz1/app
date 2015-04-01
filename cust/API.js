@@ -10,6 +10,7 @@ function api( s, s3, ddb ){
     
     s.emit('searchAuto', ['hello', 'world']);
     
+    console.log("emitted");
 };
 
 
