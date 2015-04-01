@@ -3,6 +3,18 @@ $(".dropdown-menu li a").click(function(){
   $(this).parents('.btn-group').find('.dropdown-toggle').text(selText);
 });
 
+
+function learnCohort(){
+    alert("cohorts");   
+}
+function learnEvent(){
+    alert("events");   
+}
+function learnInventor(){
+    alert("inventor");   
+}
+
+
 var typeTriggered = false;
 
 $('#signupPassCheck').keyup(function(){

@@ -1,18 +1,13 @@
 var domain = "limaea.com";
 
-$(document).ready(function() {
-
-    
-    tierTrigger();
-});
-
+tierTrigger();
 
 // Setup Socket Connection (tierTrigger) - - - under here
 
 function tierTrigger(){
     
     getSocketCount('tier1', function(numbOfSockets){
-        
+      
         compareCount('tier1', numbOfSockets);
     });
     getSocketCount('tier2', function(numbOfSockets){
@@ -40,14 +35,14 @@ var holdCount;
 var holding = false;
 
 function compareCount(tier, count){
-    
-    if(holding === false){
+
+    if(holding == false){
         holdTier = tier;
         holdCount = count;
         holding = true;
         
         setTimeout(function(){
-            if(holding === true){
+            if(holding == true){
                 socketTrigger(holdTier);
                 holding = false;
             };
@@ -61,9 +56,9 @@ function compareCount(tier, count){
             socketTrigger(holdTier);
         };
         
-    }
+    };
     
-});
+};
 
 
 function socketTrigger(tierName){

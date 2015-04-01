@@ -2,7 +2,8 @@
     border-radius: 0;
     border-color: white;
     padding: 0;
-    margin-bottom: 7px;
+    margin: 5px;
+    box-shadow:         3px 3px 7px 7px #ccc;
 }
 
 
@@ -119,6 +120,11 @@
 
 @media (max-width: 767px) {
   
+  #nav{
+        margin:1%;
+        box-shadow: 3px 3px 7px 7px #ccc;   
+  }
+    
   #verify{
     margin-left: 0;   
   }

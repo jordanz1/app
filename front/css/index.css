@@ -2,6 +2,56 @@ body{
     margin: 0;
 }
 
+#about{
+    width: 100%;
+    padding: 0;
+    margin-top: 30px;
+}
+
+#about-jumbo{
+    background-color: cadetblue;
+    color: white;
+    font-family: 'Lora', serif;
+    overflow: hidden;
+    box-shadow:         3px 3px 15px 15px #ccc;
+    width: 98%;   
+}
+
+#about-sub{
+    margin-left: 1%;
+    padding: 1%;
+    width: 31.5%;
+    float:left;
+    border-right: solid white 1px;
+    border-left: solid white 1px;
+}
+
+#about-sub h4{
+    font-size: 27px;
+}
+
+#about-sub p{
+     font-size: 20px;   
+}
+
+#about-sub-learn{
+    background-color: white;
+    color: cadetblue;
+    font-weight: 400;
+    font-size: 19px;
+    height: 40px;
+    width: 90%;
+    max-width: 200px;
+    border-style: none;
+    border-style: solid;
+    border-color: #777;
+    border-width: 1px;
+}
+
+.last-sub{
+    border-style: none;
+}
+
 #signup {
     width: 100%;
     padding: 0;
@@ -81,6 +131,19 @@ body{
 }
 
 @media (max-width: 767px) {
+    
+    #about-descript{
+        padding-bottom: 10px;
+        border-bottom: solid white 1px;   
+    }
+    
+    #about-sub{
+        clear: both;  
+        width: 100%;
+        border-style: none;
+        padding-bottom: 10px;
+        border-bottom: solid white 1px;
+    }
     
     #signup{
         margin-top: 10px;   
