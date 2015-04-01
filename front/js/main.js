@@ -129,15 +129,14 @@ function onConnection(s){
     
     s.send('hello master');
     
-    s.on('searchAuto', function(autoArr){
+    s.on('searchAutoResults', function(autoArr){
         
-        var numbOfItems = $('#search-drop li').length;
+        //var numbOfItems = $('#search-drop li').length;
         
-            $('#search-drop li').remove();  
-    
+            $('#search-drop li').parent().remove();  
         
         for(var i=0; i<autoArr.length; i++){ 
-            $('#search-drop').append('<li><a href="' +autoArr[i].link+ '">' +autoArr[i].name+ <li>');
+            $('#search-drop').append('<li><a href="' +autoArr[i].link+ '">' +autoArr[i].name+ '</a><li>');
         };
     });
     

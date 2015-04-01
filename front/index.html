@@ -3,13 +3,13 @@
 <html>
     <head>
         <title>ArchiTech</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
         
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         
         <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
         
                <link rel="stylesheet" type="text/css" href="/css/nav.css" media="screen" />
         
@@ -32,23 +32,25 @@
           </div>
           <div class="navbar-collapse collapse">
               
-            <ul class="nav pull-left">
+            <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" id="almost-search"><input type="text" class="form-control" placeholder="Search" id="search"></a>
-                    <ul class="dropdown-menu" id="search-drop">
-                        
-                    </ul>
+                    <input type="text" class="form-control" placeholder="Search" id="search" data-toggle="dropdown" class="dropdown-toggle">
+                    <ul class="dropdown-menu" id="search-drop"></ul>
                 </li>
+                <li><button class="btn btn-default" id="search-button"><i class="glyphicon glyphicon-search"></i></button></li>
             </ul>
 
               
                 <ul class="nav navbar-nav navbar-right" id="right-nav">
 
-                    <li><a href="#">Login</a></li>
+                    <li><button id="loginButton" onClick="loginTransform();">Login</button></li>
                 </ul>
           </div>
         </nav>
 
+        
+        <h1></h1>
+        
     </body>
             
         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>

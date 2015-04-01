@@ -9,6 +9,7 @@ function api( s, s3, ddb ){
     });
     
     s.emit('searchAutoResults', [{'name':'hello', 'link':'world'}]);
+    s.emit('searchAutoResults', [{'name':'yes', 'link':'this works'}]);
     
     console.log("emitted");
 };
