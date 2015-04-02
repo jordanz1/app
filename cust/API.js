@@ -80,7 +80,7 @@ function submitSignup(data){
                 
                 var timeToWait = ( 200 - width ) + randomNumb;
                 
-                setTimeout(submitSignup(data), );
+                setTimeout(submitSignup(data), timeToWait);
                 
             }else{
                 
