@@ -52,9 +52,49 @@ function homepageAPI(){
 //HOMEPAGE
 function submitSignup(data){
     if(data.email && data.password && data.interest && data.firstName && data.lastName){
-        s.emit('signUpReceived', true);  
+        s.emit('signUpReceived', true);
+        
+        var paramsForAmount = {
+            TableName: 'signup',
+            KeyConditions:{
+                id:{
+                    AttributeValueList: [{S: '0'}],
+                    ComparisonOperator:'EQ'
+                }
+            },
+            AttributesToGet: ['amount']
+        };
+        ddb.query(paramsForAmount, function(err, res){
+            
+            var amount = parseInt(res.Items[0].amount.N) + 1;
+
+            var newSignupId = amount.toString();
+            
+            var item = {
+                id: {'S': newSignupId},
+                email: {'S': data.email},
+                interest: {'S': data.interest},
+                firstName: {'S': data.firstName},
+                lastName: {'S': data.lastName},
+            }
+            
+            bcrypt.genSalt(10, function(salt){
+                bcrypt.hash(data.password, salt, function(hash){
+                    item.password = {'S': hash};
+                    
+                    ddb.putItem({
+                         'TableName': 'signup',
+                         'Item': item
+                    }, function(err, data) {
+                         err && console.log(err);
+                    });
+                    
+                });
+            });
+        });
+        
     }else{
-        console.log(data);  
+        s.emit('signUpReceived', false);  
     };
 };
 
