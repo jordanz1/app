@@ -42,16 +42,20 @@ function homepageAPI(){
 
             s.on('signUpSubmit', function(userObj){
 
-                console.log(userObj.interest);
-                console.log(userObj.firstName);
-                console.log(userObj.lastName);
-                console.log(userObj.email);
-                console.log(userObj.password);
+                submitSignup(userObj);
 
-                s.emit('signUpReceived', true);
+                //s.emit('signUpReceived', true);
 
             });  
 };
+
+//HOMEPAGE
+function submitSignup(data){
+    if(data.user && data.pass && data.email && data.firstName && data.lastName){
+        console.log("score!");  
+    };
+};
+
 
 //Mundane
 

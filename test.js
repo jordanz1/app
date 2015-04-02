@@ -1,9 +1,60 @@
-var numb = [2342, 2354235, undefined];
+var AWS = require('aws-sdk');
+var conf = require('./cust/conf.js');
 
-var result = numb[0] + numb[1] + numb[2];
+AWS.config.update({region: 'us-east-1'});
 
-if(result > 123){
-    console.log("yes");   
-}else{
-    console.log("no");
+var ddb;
+
+conf.location('/info', function(err){
+    if(!err){
+        conf.add('dynamoID');
+        conf.add('dynamoPass');
+        
+        conf(function(err, config){
+            
+            AWS.config.accessKeyId = config.dynamoID;
+            AWS.config.secretAccessKey = config.dynamoPass;
+
+            ddb = new AWS.DynamoDB(); 
+
+            continueIt();
+            
+        });
+    }
+});
+
+
+function continueIt(){
+    
+    var amount = 0;
+    
+    var paramsForAmount = {
+        TableName: 'signup',
+        KeyConditions:{
+            id:{
+                AttributeValueList: [{S: '0'}],
+                ComparisonOperator:'EQ'
+            }
+        },
+        AttributesToGet: ['amount']
+    };
+    ddb.query(paramsForAmount, function(err, res){
+    
+        var amount = parseInt(res.Items[0].amount.N) + 1;
+        
+        var newSignupId = amount.toString();
+        
+        console.log(newSignupId);
+        
+        var item = { id: {'S': newSignupId}, random: {'S': 'hello!'}};
+        ddb.putItem({
+             'TableName': 'signup',
+             'Item': item
+        }, function(err, data) {
+             err && console.log(err);
+        });
+        
+    }); 
+    
+    
 }
