@@ -25,36 +25,23 @@ conf.location('/info', function(err){
 
 
 function continueIt(){
-    
-    var amount = 0;
-    
-    var paramsForAmount = {
+
+    var params = {
         TableName: 'signup',
-        KeyConditions:{
-            id:{
-                AttributeValueList: [{S: '0'}],
-                ComparisonOperator:'EQ'
-            }
+        Key:{
+            id:{S: '0'}
         },
-        AttributesToGet: ['amount']
+        AttributeUpdates: {
+            amount:{
+                Action: 'PUT',
+                Value: {'N': '1042762872341'}
+            }
+        }
     };
-    ddb.query(paramsForAmount, function(err, res){
     
-        var amount = parseInt(res.Items[0].amount.N) + 1;
-        
-        var newSignupId = amount.toString();
-        
-        console.log(newSignupId);
-        
-        var item = { id: {'S': newSignupId}, random: {'S': 'hello!'}};
-        ddb.putItem({
-             'TableName': 'signup',
-             'Item': item
-        }, function(err, data) {
-             err && console.log(err);
-        });
-        
-    }); 
-    
-    
+    ddb.updateItem(params, function(err, data) {
+        if(err){
+            //log(err)
+        };
+    });
 }

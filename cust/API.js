@@ -98,8 +98,10 @@ function submitSignup(data){
                                  if(err){
                                     log(err);  
                                  }else{
-                                     s.emit('signUpReceived', true);
+                                     //s.emit('signUpReceived', true);
                                      log('successful');
+                                     
+                                     kindaSQL-updateSignup(newSignupId);
                                  };
                             });
                         };
@@ -113,6 +115,30 @@ function submitSignup(data){
     }else{
         s.emit('signUpReceived', false);  
     };
+};
+
+function kindaSQL-updateSignup(amount){
+    
+    var params = {
+        TableName: 'signup',
+        Key:{
+            id:{S: '0'}
+        },
+        AttributeUpdates: {
+            amount:{
+                Action: 'PUT',
+                Value: {'N': amount}
+            }
+        }
+    };
+    
+    ddb.updateItem(params, function(err, data) {
+        if(err){
+            log(err);
+        };
+    });
+    
+    
 };
 
 
