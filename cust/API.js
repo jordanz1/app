@@ -166,9 +166,9 @@ function kindaSQL_updateSignup(amount){
         });
     });
     
-    async.parallel(asyncTasks, function(err, value, type){
-        console.log(value); 
-        console.log(type);
+    async.parallel(asyncTasks, function(err, returnObj){
+        console.log(returnObj[0]); 
+        console.log(returnObj[1]);
     });
     
 };
