@@ -156,7 +156,7 @@ function kindaSQL_updateSignup(amount){
                                         
                     paramsForPointUpdate.AttributeUpdates['pointAmount'] = {Action: 'ADD', Value: {'N': '1'}};
                     
-                
+                    console.log(typeof pointAmount);
                     if(pointAmount === 10){
                         point += 1;
                         
