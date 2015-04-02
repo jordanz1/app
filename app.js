@@ -10,7 +10,7 @@ var io = require('socket.io');
 var ioClient = require('socket.io-client');
 var getIP = require('external-ip')();
 var Route53 = require('nice-route53');
-var DynamoDB = require('dynamodb');
+var AWS = require('aws-sdk');
 var knox = require('knox');
 
 //cust requires
@@ -97,10 +97,14 @@ function processConfig(config){
     
     updateIP();
 //Set up DynamoDB as ddb
-    ddb = DynamoDB.ddb({ 
-        accessKeyId: config.dynamoID,
-        secretAccessKey: config.dynamoPass
-    });
+    
+    AWS.config.update({region: 'us-east-1'});
+    
+    AWS.config.accessKeyId = config.dynamoID;
+    AWS.config.secretAccessKey = config.dynamoPass;
+
+    ddb = new AWS.DynamoDB(); 
+    
 //Set up S3 as s3
     s3 = knox.createClient({
         key: config.s3ID

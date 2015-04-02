@@ -52,7 +52,6 @@ function homepageAPI(){
 //HOMEPAGE
 function submitSignup(data){
     if(data.email && data.password && data.interest && data.firstName && data.lastName){
-        s.emit('signUpReceived', true);
         
         var paramsForAmount = {
             TableName: 'signup',
@@ -64,6 +63,7 @@ function submitSignup(data){
             },
             AttributesToGet: ['amount']
         };
+        
         ddb.query(paramsForAmount, function(err, res){
             
             var amount = parseInt(res.Items[0].amount.N) + 1;
@@ -86,7 +86,12 @@ function submitSignup(data){
                          'TableName': 'signup',
                          'Item': item
                     }, function(err, data) {
-                         err && console.log(err);
+                         if(err){
+                            log(err);  
+                         }else{
+                             s.emit('signUpReceived', true);
+                             log('successful');
+                         };
                     });
                     
                 });
