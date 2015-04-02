@@ -119,26 +119,7 @@ function submitSignup(data){
 };
 
 function kindaSQL_updateSignup(amount){
-    
-    var paramsForAmountUpdate = {
-        TableName: 'signup',
-        Key:{
-            id:{S: '0'}
-        },
-        AttributeUpdates: {
-            amount:{
-                Action: 'PUT',
-                Value: {'N': amount}
-            }
-        }
-    };
-    
-    ddb.updateItem(paramsForAmountUpdate, function(err, data) {
-        if(err){
-            log(err);
-        };
-    });
-    
+
         var paramsForPoint = {
             TableName: 'signup',
             KeyConditions:{
@@ -158,8 +139,46 @@ function kindaSQL_updateSignup(amount){
                 var point = res.Items[0].point.S;
                 var pointAmount = res.Items[0].pointAmount.N;
                 
-                console.log(point);
-                console.log(pointAmount);
+                
+                    var paramsForPointUpdate = {
+                        TableName: 'signup',
+                        Key:{
+                            id:{S: '0'}
+                        },
+                        AttributeUpdates: {
+                            amount:{
+                                Action: 'PUT',
+                                Value: {'N': amount}
+                            },
+                        }
+                    };
+                    
+                                        
+                    paramsForPointUpdate.AttributeUpdates['pointAmount'].Action = 'ADD';
+                    paramsForPointUpdate.AttributeUpdates['pointAmount'].Value = {'N': '1'};
+                
+                    if(pointAmount === 10){
+                        point += 1;
+                        
+                        paramsForPointUpdate.AttributeUpdates['point'].Action = 'ADD';
+                        paramsForPointUpdate.AttributeUpdates['point'].Value = {'N': '1'};
+                        
+                        paramsForPointUpdate.AttributeUpdates['pointAmount'].Action = 'PUT';
+                        paramsForPointUpdate.AttributeUpdates['pointAmount'].Value = {'N': '1'};
+                    };
+                
+                    paramsForPointUpdate.AttributeUpdates[point].Action = 'ADD';
+                    paramsForPointUpdate.AttributeUpdates[point].Value = {'S': amount};
+
+                    ddb.updateItem(paramsForAmountUpdate, function(err, data) {
+                        if(err){
+                            log(err);
+                        };
+                    });
+                
+                
+                
+                
             };
         });
  
