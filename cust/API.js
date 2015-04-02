@@ -127,7 +127,7 @@ function submitSignup(data){
                                             if( result === false){
                                                 s.emit('signUpReceived', false);
                                             }else if( result === true){
-                                                s.emit('signUpReceived', true);
+                                                //s.emit('signUpReceived', true);
                                                 
                                                 log('successful');
                                             };
