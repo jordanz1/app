@@ -137,7 +137,7 @@ function kindaSQL_updateSignup(amount){
                 cb(err, null, null);   
             }else{
                 var point = res.Items[0].point.N;
-                var pointAmount = res.Items[0].pointAmount.N;
+                var pointAmount = parseInt( res.Items[0].pointAmount.N );
                 
                 
                     var paramsForPointUpdate = {
