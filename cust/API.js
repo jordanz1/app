@@ -139,9 +139,6 @@ function kindaSQL_updateSignup(amount){
         };
     });
     
-    var asyncTasks = [];
-    asyncTasks.push(function(cb){
-        
         var paramsForPoint = {
             TableName: 'signup',
             KeyConditions:{
@@ -150,7 +147,7 @@ function kindaSQL_updateSignup(amount){
                     ComparisonOperator:'EQ'
                 }
             },
-            AttributesToGet: ['point']
+            AttributesToGet: ['point', 'pointAmount']
         };
         
         ddb.query(paramsForPoint, function(err, res){
@@ -159,19 +156,10 @@ function kindaSQL_updateSignup(amount){
                 cb(err, null, null);   
             }else{
                 var point = res.Items[0].point.S;
-
-                cb(null, point, 'point');
-
+                var pointAmount = res.Items[0].pointAmount.N;
             };
         });
     });
-    
-    async.parallel(asyncTasks, function(err, returnObj){
-        console.log(returnObj[0][0]); 
-        console.log(returnObj[0][1]);
-        //console.log(returnObj[1]);
-    });
-    
 };
 
 
