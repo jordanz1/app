@@ -131,7 +131,7 @@ function startHTTP(){
         if(err){
             panic.exit(err);
         }else{        
-        api( s, s3, ddb );
+        
             log('HTTP - Listening on port: ' + httpPort);   
         };
     });
@@ -153,7 +153,7 @@ function startSocket(server){
             socketCount -= 1;
         });
         
-            api( s, s3, ddb );
+        api( s, s3, ddb );
       
 
     });
