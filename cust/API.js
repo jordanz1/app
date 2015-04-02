@@ -51,7 +51,7 @@ function homepageAPI(){
 
 //HOMEPAGE
 function submitSignup(data){
-    if(data.user && data.pass && data.email && data.firstName && data.lastName){
+    if(data.email && data.pass && data.interest && data.firstName && data.lastName){
         console.log("score!");  
     }else{
         console.log(data);  
