@@ -52,6 +52,7 @@ function homepageAPI(){
 
 //HOMEPAGE
 function submitSignup(data){
+    
     if(data.email && data.password && data.interest && data.firstName && data.lastName){
         
         var paramsForAmount = {
@@ -62,55 +63,83 @@ function submitSignup(data){
                     ComparisonOperator:'EQ'
                 }
             },
-            AttributesToGet: ['amount']
+            AttributesToGet: ['amount', 'updated']
         };
         
         ddb.query(paramsForAmount, function(err, res){
             
-            var amount = parseInt(res.Items[0].amount.N) + 1;
-
-            var newSignupId = amount.toString();
+            var updated = res.Items[0].updated.N;
             
-            var item = {
-                id: {'S': newSignupId},
-                email: {'S': data.email.toLowerCase()},
-                interest: {'S': data.interest.toLowerCase()},
-                firstName: {'S': data.firstName.toLowerCase()},
-                lastName: {'S': data.lastName.toLowerCase()},
-            }
+            var current = new Date().getTime();
             
-            bcrypt.genSalt(10, function(err, salt){
+            var width = current - updated;
+            
+            if( width < 200){
                 
-                if(err){
-                    log(err);
-                }else{
+                var randomNumb = Math.floor((Math.random() * 100) + 1);
                 
-                    bcrypt.hash(data.password, salt, function(err, hash){
-                        if(err){
-                            log(err);
-                        }else{
+                var timeToWait = ( 200 - width ) + randomNumb;
+                
+                setTimeout(submitSignup(data), );
+                
+            }else{
+                
+                var amount = parseInt(res.Items[0].amount.N) + 1;
 
-                            item.password = {'S': hash.toString() };
+                var newSignupId = amount.toString();
 
-                            ddb.putItem({
-                                 'TableName': 'signup',
-                                 'Item': item
-                            }, function(err, data) {
-                                 if(err){
-                                    log(err);  
-                                 }else{
-                                     //s.emit('signUpReceived', true);
-                                     log('successful');
-                                     
-                                     kindaSQL_updateSignup(newSignupId);
-                                 };
-                            });
-                        };
-                    });
-                    
-                };
-            });
-            
+                var item = {
+                    id: {'S': newSignupId},
+                    email: {'S': data.email.toLowerCase()},
+                    interest: {'S': data.interest.toLowerCase()},
+                    firstName: {'S': data.firstName.toLowerCase()},
+                    lastName: {'S': data.lastName.toLowerCase()},
+                }
+
+                bcrypt.genSalt(13, function(err, salt){
+
+                    if(err){
+                        log(err);
+                        s.emit('signUpReceived', false);
+                    }else{
+
+                        bcrypt.hash(data.password, salt, function(err, hash){
+                            if(err){
+                                
+                                log(err);
+                                s.emit('signUpReceived', false);
+                            }else{
+
+                                item.password = {'S': hash.toString() };
+
+                                ddb.putItem({
+                                    
+                                     'TableName': 'signup',
+                                     'Item': item
+                                }, function(err, data) {
+                                     if(err){
+                                        s.emit('signUpReceived', false);
+                                         
+                                        log(err);  
+                                     }else{
+
+                                         kindaSQL_updateSignup(newSignupId, function(result){
+                                            if( result === false){
+                                                s.emit('signUpReceived', false);
+                                            }elseif( result === true){
+                                                s.emit('signUpReceived', true);
+                                                
+                                                log('successful');
+                                            };
+                                         });
+                                     };
+                                });
+                            };
+                        });
+
+                    };
+                });
+            };
         });
         
     }else{
@@ -118,7 +147,7 @@ function submitSignup(data){
     };
 };
 
-function kindaSQL_updateSignup(amount){
+function kindaSQL_updateSignup(amount, cb){
 
         var paramsForPoint = {
             TableName: 'signup',
@@ -169,7 +198,10 @@ function kindaSQL_updateSignup(amount){
 
                     ddb.updateItem(paramsForPointUpdate, function(err, data) {
                         if(err){
+                            cb(false);
                             log(err);
+                        }else{
+                            cb(true);  
                         };
                     });
                 
