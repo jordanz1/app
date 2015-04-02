@@ -42,14 +42,8 @@ function homepageAPI(){
             //s.emit('searchAutoResults', [{'name':'', 'link':''}]);
 
             s.on('signUpSubmit', function(userObj){
-                
-                var numbOfSent = 0;
-                setInterval(function(){
-                    numbOfSent += 1;
+
                     submitSignup(userObj);
-                    log("COUNT:" + numbOfSent);
-                }, 700);
-                //s.emit('signUpReceived', true);
 
             });  
 };
@@ -141,9 +135,7 @@ function submitSignup(data){
                                             if( result === false){
                                                 s.emit('signUpReceived', false);
                                             }else if( result === true){
-                                                //s.emit('signUpReceived', true);
-                                                
-                                                log('successful');
+                                                s.emit('signUpReceived', true);
                                             };
                                          });
                                      };
