@@ -53,6 +53,8 @@ function homepageAPI(){
 function submitSignup(data){
     if(data.user && data.pass && data.email && data.firstName && data.lastName){
         console.log("score!");  
+    }else{
+        console.log(data);  
     };
 };
 
