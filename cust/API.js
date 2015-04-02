@@ -101,7 +101,7 @@ function submitSignup(data){
                                      //s.emit('signUpReceived', true);
                                      log('successful');
                                      
-                                     kindaSQL-updateSignup(newSignupId);
+                                     kindaSQL_updateSignup(newSignupId);
                                  };
                             });
                         };
@@ -117,7 +117,7 @@ function submitSignup(data){
     };
 };
 
-function kindaSQL-updateSignup(amount){
+function kindaSQL_updateSignup(amount){
     
     var params = {
         TableName: 'signup',
