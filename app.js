@@ -179,7 +179,7 @@ function otherTierSetup(){
         
     }else{
         
-        oTier = ioClient.connect(tier + '.' + domain ':' + tierPort);                     
+        oTier = ioClient.connect(tier + '.' + domain + ':' + tierPort);                     
         
         oTier.on('connect', function(){
             oTierConnected = true; 
