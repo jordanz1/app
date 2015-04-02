@@ -157,6 +157,9 @@ function kindaSQL_updateSignup(amount){
             }else{
                 var point = res.Items[0].point.S;
                 var pointAmount = res.Items[0].pointAmount.N;
+                
+                console.log(point);
+                console.log(pointAmount);
             };
         });
  
