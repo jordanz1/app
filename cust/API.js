@@ -154,21 +154,18 @@ function kindaSQL_updateSignup(amount){
                     };
                     
                                         
-                    paramsForPointUpdate.AttributeUpdates['pointAmount'].Action = 'ADD';
-                    paramsForPointUpdate.AttributeUpdates['pointAmount'].Value = {'N': '1'};
+                    paramsForPointUpdate.AttributeUpdates['pointAmount'] = {Action: 'ADD', Value: {'N': '1'}};
+                    
                 
                     if(pointAmount === 10){
                         point += 1;
                         
-                        paramsForPointUpdate.AttributeUpdates['point'].Action = 'ADD';
-                        paramsForPointUpdate.AttributeUpdates['point'].Value = {'N': '1'};
+                        paramsForPointUpdate.AttributeUpdates['point'] = {Action: 'ADD', Value: {'N': '1'}};
                         
-                        paramsForPointUpdate.AttributeUpdates['pointAmount'].Action = 'PUT';
-                        paramsForPointUpdate.AttributeUpdates['pointAmount'].Value = {'N': '1'};
+                        paramsForPointUpdate.AttributeUpdates['pointAmount'] = {Action: 'PUT', Value: {'N': '1'}};
                     };
                 
-                    paramsForPointUpdate.AttributeUpdates[point].Action = 'ADD';
-                    paramsForPointUpdate.AttributeUpdates[point].Value = {'S': amount};
+                    paramsForPointUpdate.AttributeUpdates[point] = {Action: 'ADD', Value:{'S', amount}};
 
                     ddb.updateItem(paramsForPointUpdate, function(err, data) {
                         if(err){
