@@ -86,6 +86,8 @@ function submitSignup(data){
                 
                 setTimeout(function(){
                     
+                    console.log(data);
+                    log('going to sleep');
                     submitSignup(data)
                         
                 }, timeToWait);
