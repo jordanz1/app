@@ -74,6 +74,8 @@ function submitSignup(data){
             
             var width = current - updated;
             
+            console.log(width);
+            
             if( width < 200){
                 
                 var randomNumb = Math.floor((Math.random() * 100) + 1);
@@ -163,7 +165,8 @@ function kindaSQL_updateSignup(amount, cb){
         ddb.query(paramsForPoint, function(err, res){
 
             if(err){
-                cb(err, null, null);   
+                cb(false);
+                log(err);
             }else{
                 var point = parseInt( res.Items[0].point.N );
                 var pointAmount = parseInt( res.Items[0].pointAmount.N );
