@@ -181,7 +181,7 @@ function kindaSQL_updateSignup(amount, cb){
                             },
                             updated:{
                                 Action: 'PUT',
-                                Value: {'N': new Date().getTime() }
+                                Value: {'N': new Date().getTime().toString() }
                             }
                         }
                     };
@@ -193,7 +193,7 @@ function kindaSQL_updateSignup(amount, cb){
                     if(pointAmount === 10){
                         point += 1;
                         
-                        paramsForPointUpdate.AttributeUpdates['point'] = {Action: 'ADD', Value: {'N': 1}};
+                        paramsForPointUpdate.AttributeUpdates['point'] = {Action: 'ADD', Value: {'N': '1'}};
                         
                         paramsForPointUpdate.AttributeUpdates['pointAmount'] = {Action: 'PUT', Value: {'N': '0'}};
                     };
