@@ -46,7 +46,7 @@ function homepageAPI(){
                     
                     submitSignup(userObj);
                 
-                }, 200);
+                }, 500);
                 //s.emit('signUpReceived', true);
 
             });  
