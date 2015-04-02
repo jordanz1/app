@@ -126,7 +126,7 @@ function submitSignup(data){
                                          kindaSQL_updateSignup(newSignupId, function(result){
                                             if( result === false){
                                                 s.emit('signUpReceived', false);
-                                            }elseif( result === true){
+                                            }else if( result === true){
                                                 s.emit('signUpReceived', true);
                                                 
                                                 log('successful');
