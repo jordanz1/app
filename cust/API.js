@@ -52,7 +52,7 @@ function homepageAPI(){
 //HOMEPAGE
 function submitSignup(data){
     if(data.email && data.password && data.interest && data.firstName && data.lastName){
-        s.emit('signUpReceived', false);  
+        s.emit('signUpReceived', true);  
     }else{
         console.log(data);  
     };
