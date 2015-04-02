@@ -159,7 +159,7 @@ function kindaSQL_updateSignup(amount){
                 var pointAmount = res.Items[0].pointAmount.N;
             };
         });
-    });
+ 
 };
 
 
