@@ -78,24 +78,36 @@ function submitSignup(data){
                 lastName: {'S': data.lastName},
             }
             
-            bcrypt.genSalt(10, function(salt){
-                bcrypt.hash(data.password, salt, function(hash){
-                    item.password = {'S': hash.toString() };
-                    
-                    ddb.putItem({
-                         'TableName': 'signup',
-                         'Item': item
-                    }, function(err, data) {
-                         if(err){
-                            log(err);  
-                         }else{
-                             s.emit('signUpReceived', true);
-                             log('successful');
-                         };
+            bcrypt.genSalt(10, function(err, salt){
+                
+                if(err){
+                    log(err);
+                }else{
+                
+                    bcrypt.hash(data.password, salt, function(err, hash){
+                        if(err){
+                            log(err);
+                        }else{
+
+                            item.password = {'S': hash.toString() };
+
+                            ddb.putItem({
+                                 'TableName': 'signup',
+                                 'Item': item
+                            }, function(err, data) {
+                                 if(err){
+                                    log(err);  
+                                 }else{
+                                     s.emit('signUpReceived', true);
+                                     log('successful');
+                                 };
+                            });
+                        };
                     });
                     
-                });
+                };
             });
+            
         });
         
     }else{
