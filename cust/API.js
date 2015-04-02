@@ -82,7 +82,13 @@ function submitSignup(data){
                 
                 var timeToWait = ( 200 - width ) + randomNumb;
                 
-                setTimeout(submitSignup(data), timeToWait);
+                console.log("waiting: " + timeToWait);
+                
+                setTimeout(function(){
+                    
+                    submitSignup(data)
+                        
+                }, timeToWait);
                 
             }else{
                 
