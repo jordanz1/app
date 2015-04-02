@@ -74,19 +74,19 @@ function submitSignup(data){
             
             console.log(width);
             
-            if( width < 200){
+            if( width < 700){
                 
                 var randomNumb = Math.floor((Math.random() * 100) + 1);
                 
-                var timeToWait = ( 200 - width ) + randomNumb;
+                var timeToWait = ( 700 - width ) + randomNumb;
                 
-                console.log("waiting: " + timeToWait);
+                var holdData = data;
                 
                 setTimeout(function(){
                     
-                    console.log(data);
-                    log('going to sleep');
-                    submitSignup(data)
+                    console.log("waiting: " + timeToWait);
+                    
+                    submitSignup(holdData);
                         
                 }, timeToWait);
                 
