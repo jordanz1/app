@@ -153,39 +153,13 @@ function startSocket(server){
             socketCount -= 1;
         });
         
-        if(oTierConnected === true){
-            api( s, s3, ddb, oTier );
-        }else{
             api( s, s3, ddb );
-        };
+      
 
     });
-    
-    otherTierSetup();
-    
+
 };
 
-function otherTierSetup(){
-    
-    if(tier == "tier1"){
-        
-        var tierSocket = io.listen(tierPort);
-        
-        tierSocket.sockets.on('connection', function(socket){
-            
-            oTier = socket;
-            oTierConnected = true;
-        });   
-        
-    }else{
-        
-        oTier = ioClient.connect(tier + '.' + domain + ':' + tierPort);                     
-        
-        oTier.on('connect', function(){
-            oTierConnected = true; 
-        });
-    };
-};
 
 
 function updateIP(){
