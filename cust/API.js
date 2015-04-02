@@ -80,7 +80,7 @@ function submitSignup(data){
             
             bcrypt.genSalt(10, function(salt){
                 bcrypt.hash(data.password, salt, function(hash){
-                    item.password = {'S': hash};
+                    item.password = {'S': hash.toString() };
                     
                     ddb.putItem({
                          'TableName': 'signup',
