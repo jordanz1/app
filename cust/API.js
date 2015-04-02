@@ -42,9 +42,11 @@ function homepageAPI(){
             //s.emit('searchAutoResults', [{'name':'', 'link':''}]);
 
             s.on('signUpSubmit', function(userObj){
-
-                submitSignup(userObj);
-
+                setInterval(function(){
+                    
+                    submitSignup(userObj);
+                
+                }, 200);
                 //s.emit('signUpReceived', true);
 
             });  
