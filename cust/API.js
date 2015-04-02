@@ -72,10 +72,10 @@ function submitSignup(data){
             
             var item = {
                 id: {'S': newSignupId},
-                email: {'S': data.email},
-                interest: {'S': data.interest},
-                firstName: {'S': data.firstName},
-                lastName: {'S': data.lastName},
+                email: {'S': data.email.toLowerCase()},
+                interest: {'S': data.interest.toLowerCase()},
+                firstName: {'S': data.firstName.toLowerCase()},
+                lastName: {'S': data.lastName.toLowerCase()},
             }
             
             bcrypt.genSalt(10, function(err, salt){
