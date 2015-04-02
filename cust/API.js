@@ -170,7 +170,7 @@ function kindaSQL_updateSignup(amount){
                     paramsForPointUpdate.AttributeUpdates[point].Action = 'ADD';
                     paramsForPointUpdate.AttributeUpdates[point].Value = {'S': amount};
 
-                    ddb.updateItem(paramsForAmountUpdate, function(err, data) {
+                    ddb.updateItem(paramsForPointUpdate, function(err, data) {
                         if(err){
                             log(err);
                         };
