@@ -165,7 +165,7 @@ function kindaSQL_updateSignup(amount, cb){
             if(err){
                 cb(err, null, null);   
             }else{
-                var point = res.Items[0].point.N;
+                var point = parseInt( res.Items[0].point.N );
                 var pointAmount = parseInt( res.Items[0].pointAmount.N );
                 
                 
@@ -190,6 +190,7 @@ function kindaSQL_updateSignup(amount, cb){
                     paramsForPointUpdate.AttributeUpdates['pointAmount'] = {Action: 'ADD', Value: {'N': '1'}};
                     
                     console.log(typeof pointAmount);
+                
                     if(pointAmount === 10){
                         point += 1;
                         
