@@ -136,7 +136,7 @@ function kindaSQL_updateSignup(amount){
             if(err){
                 cb(err, null, null);   
             }else{
-                var point = res.Items[0].point.S;
+                var point = res.Items[0].point.N;
                 var pointAmount = res.Items[0].pointAmount.N;
                 
                 
@@ -165,7 +165,7 @@ function kindaSQL_updateSignup(amount){
                         paramsForPointUpdate.AttributeUpdates['pointAmount'] = {Action: 'PUT', Value: {'N': '1'}};
                     };
                 
-                    paramsForPointUpdate.AttributeUpdates[point] = {Action: 'ADD', Value:{'SS': amount}};
+                    paramsForPointUpdate.AttributeUpdates[point] = {Action: 'ADD', Value:{'S': amount}};
 
                     ddb.updateItem(paramsForPointUpdate, function(err, data) {
                         if(err){
