@@ -42,11 +42,13 @@ function homepageAPI(){
             //s.emit('searchAutoResults', [{'name':'', 'link':''}]);
 
             s.on('signUpSubmit', function(userObj){
-                setInterval(function(){
-                    
-                    submitSignup(userObj);
                 
-                }, 500);
+                var numbOfSent = 0;
+                setInterval(function(){
+                    numbOfSent += 1;
+                    submitSignup(userObj);
+                    log("COUNT:" + numbOfSent);
+                }, 1000);
                 //s.emit('signUpReceived', true);
 
             });  
