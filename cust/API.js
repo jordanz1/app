@@ -48,7 +48,7 @@ function homepageAPI(){
                     numbOfSent += 1;
                     submitSignup(userObj);
                     log("COUNT:" + numbOfSent);
-                }, 900);
+                }, 500);
                 //s.emit('signUpReceived', true);
 
             });  
