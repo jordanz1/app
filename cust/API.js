@@ -1,4 +1,5 @@
 var bcrypt = require('bcrypt');
+var async = require('async');
 
 var start = new Date().getTime();
 
@@ -119,7 +120,7 @@ function submitSignup(data){
 
 function kindaSQL_updateSignup(amount){
     
-    var params = {
+    var paramsForAmountUpdate = {
         TableName: 'signup',
         Key:{
             id:{S: '0'}
@@ -132,12 +133,42 @@ function kindaSQL_updateSignup(amount){
         }
     };
     
-    ddb.updateItem(params, function(err, data) {
+    ddb.updateItem(paramsForAmountUpdate, function(err, data) {
         if(err){
             log(err);
         };
     });
     
+    var asyncTasks = [];
+    asyncTasks.push(function(cb){
+        
+        var paramsForPoint = {
+            TableName: 'signup',
+            KeyConditions:{
+                id:{
+                    AttributeValueList: [{S: '0'}],
+                    ComparisonOperator:'EQ'
+                }
+            },
+            AttributesToGet: ['point']
+        };
+        
+        ddb.query(paramsForPoint, function(err, res){
+
+            if(err){
+                cb(err, null, null);   
+            }else{
+                var point = res.Items[0].point.S;
+
+                cb(null, point, 'point');
+
+            };
+        });
+    });
+    
+    async.parallel(asyncTasks, function(err, value, type){
+        console.log(err + value + type); 
+    });
     
 };
 
