@@ -7,6 +7,7 @@ var url = require('url');
 
 //node_module requires
 var io = require('socket.io');
+var ioClient = require('socket.io-client');
 var getIP = require('external-ip')();
 var Route53 = require('nice-route53');
 var DynamoDB = require('dynamodb');
@@ -26,12 +27,15 @@ var tier,
     myIP,
     r53,
     ddb,
-    s3;
+    s3,
+    oTier;
 
 var socketCount = 0;
 
 var httpPort = 80;
-var socketPort = 3000;
+var tierPort = 3000;
+
+var oTierConnected = false;
 
 //Setup Functions
 
@@ -126,7 +130,8 @@ function startHTTP(){
     server.listen(httpPort, function(err){
         if(err){
             panic.exit(err);
-        }else{
+        }else{        
+        api( s, s3, ddb );
             log('HTTP - Listening on port: ' + httpPort);   
         };
     });
@@ -147,11 +152,41 @@ function startSocket(server){
         s.on('disconnect', function(){
             socketCount -= 1;
         });
-        api( s, s3, ddb );
         
-        
+        if(oTierConnected === true){
+            api( s, s3, ddb, oTier );
+        }else{
+            api( s, s3, ddb );
+        };
+
     });
+    
+    otherTierSetup();
+    
 };
+
+function otherTierSetup(){
+    
+    if(tier == "tier1"){
+        
+        var tierSocket = io.listen(tierPort);
+        
+        tierSocket.sockets.on('connection', function(socket){
+            
+            oTier = socket;
+            oTierConnected = true;
+        });   
+        
+    }else{
+        
+        oTier = ioClient.connect(tier + '.' + domain ':' + tierPort);                     
+        
+        oTier.on('connect', function(){
+            oTierConnected = true; 
+        });
+    };
+};
+
 
 function updateIP(){
     
