@@ -40,12 +40,19 @@ function getPageDetails(type, cb){
 function homepageAPI(){
                 //Sends back autocomplete search results 
             //s.emit('searchAutoResults', [{'name':'', 'link':''}]);
+    
+    s.on('signUpSubmit', function(userObj){
 
-            s.on('signUpSubmit', function(userObj){
+        submitSignup(userObj);
 
-                    submitSignup(userObj);
-
-            });  
+    }); 
+    
+    s.on('autocomplete', function(query){
+        console.log(query);
+        s.emit('autocompleteResult', query );
+    });
+    
+    
 };
 
 //HOMEPAGE

@@ -4,6 +4,15 @@ $('#search-button').click(function(){
     
 });
 
+$('#search').keypress(function(){
+    
+    if(connected === true){
+        s.emit('autocomplete', $('#search').val() );  
+    };
+    
+});
+
+
 if(connected === true){
     //Autocomplete search results in nav bar event
     s.on('searchAutoResults', function(autoArr){

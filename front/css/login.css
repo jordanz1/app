@@ -9,12 +9,12 @@ body{
 }
 
 #login-jumbo{
-    background-color: #5AD9DB;
+    background-color: #108ea9;
     max-width: 700px;
 }
 
 #login-jumbo h1{
-    color: #E82A49;
+    color: white;
     font-weight: 400;
     text-shadow: -1px 0 #777, 0 1px #777, 1px 0 #777, 0 -1px #777;
     
