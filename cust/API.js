@@ -71,8 +71,7 @@ function submitSignup(data){
             var current = new Date().getTime();
             
             var width = current - updated;
-            
-            console.log(width);
+
             
             if( width < 700){
                 
@@ -135,7 +134,7 @@ function submitSignup(data){
                                             if( result === false){
                                                 s.emit('signUpReceived', false);
                                             }else if( result === true){
-                                                //s.emit('signUpReceived', true);
+                                                s.emit('signUpReceived', true);
                                             };
                                          });
                                      };
