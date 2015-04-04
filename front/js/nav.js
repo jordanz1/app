@@ -12,6 +12,15 @@ $('#search').keypress(function(){
     
 });
 
+setInterval(function(){
+    
+    if($('#search-drop').children().length > 0){
+        $('#search-drop').css('display', 'block');   
+    }else{
+        $('#search-drop').css('display', 'none');
+    };
+    
+}, 100);
 
 if(connected === true){
     //Autocomplete search results in nav bar event

@@ -11,12 +11,13 @@ body{
 #about-jumbo{
     padding: 17px;
     padding-bottom: 25px;
-    background-color: #a55;
+    background-color: #D96459;
     color: white;
     font-family: 'Lora', serif;
     overflow: hidden;
     box-shadow:         3px 3px 15px 15px #ccc;
-    width: 98%;   
+    width: 98%;
+    max-width: 1200px;
 }
 
 #about-sub{
@@ -24,6 +25,7 @@ body{
     padding: 1%;
     width: 31.5%;
     float:left;
+    border-top: dashed white 1px;
     border-right: solid white 1px;
     border-left: solid white 1px;
 }
@@ -38,7 +40,7 @@ body{
 
 #about-sub-learn{
     background-color: white;
-    color: #a55;
+    color: #833;
     font-weight: 400;
     font-size: 19px;
     height: 40px;
@@ -50,8 +52,72 @@ body{
     border-width: 1px;
 }
 
-.last-sub{
-    border-style: none;
+
+#cohort{
+    width: 100%;
+    padding: 0;
+    margin-top: 9px;
+}
+
+#cohort-jumbo{
+    padding: 17px;
+    padding-bottom: 25px;
+    background-color: #464263;
+    color: white;
+    font-family: 'Lora', serif;
+    overflow: hidden;
+    box-shadow:         3px 3px 15px 15px #ccc;
+    width: 98%;   
+    max-width: 1200px;
+}
+
+#inventor{
+    width: 100%;
+    padding: 0;
+    margin-top: 9px;
+}
+
+#inventor-jumbo{
+    padding: 17px;
+    padding-bottom: 25px;
+    background-color: #31B288;
+    color: white;
+    font-family: 'Lora', serif;
+    overflow: hidden;
+    box-shadow:         3px 3px 15px 15px #ccc;
+    width: 98%;   
+    max-width: 1200px;
+}
+
+#event{
+    width: 100%;
+    padding: 0;
+    margin-top: 9px;
+}
+
+#event-jumbo{
+    padding: 17px;
+    padding-bottom: 25px;
+    background-color: #7F6658;
+    color: white;
+    font-family: 'Lora', serif;
+    overflow: hidden;
+    box-shadow:         3px 3px 15px 15px #ccc;
+    width: 98%; 
+    max-width: 1200px;
+}
+
+#event-button{
+    border-style: solid;
+    border-color: #666;
+    border-width: 1px;
+    width:50%;
+    max-width: 220px;
+    height:40px;
+    font-size: 18px;
+    background-color: white;
+    color: #4F3628; 
+    font-weight: 525;
 }
 
 #signup {
@@ -66,7 +132,7 @@ body{
     box-shadow:         3px 3px 15px 15px #ccc;
     width: 98%;
     max-width: 850px;
-    background-color:#C26727;
+    background-color:#ED7E30;
     color:white;
     font-family: 'Lora', serif;
     text-align: center;
@@ -96,7 +162,7 @@ body{
 }
 
 #interest-drop{
-    width: 100%;   
+    width: 100%; 
 }
 
 #lastDiv{

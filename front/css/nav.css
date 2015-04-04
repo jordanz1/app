@@ -1,3 +1,8 @@
+body{
+    background-color: white;
+}
+
+
 #nav{
     border-radius: 0;
     border-color: white;
@@ -15,7 +20,7 @@
 }
 
 #brand:hover{
-    background-color:#006e89;
+    background-color:#A2A384;
 }
 
 #search{
@@ -31,6 +36,13 @@
     font-size: 17px;
 }
 
+#search-drop{
+    width: 100%;
+    background-color: white;
+    color: #5A6A62;
+    font-size: 17px;
+}
+
 #search-button{
     border-style: solid;
     border-color: #777;
@@ -41,7 +53,7 @@
 }
 
 .glyphicon-search{
-    color:#108ea9;    
+    color: #A2A384;   
 }
 
 #right-nav li{
@@ -51,7 +63,7 @@
 }
 
 .navbar-default {
-  background-color: #108ea9;
+  background-color: #5A6A62;
 }
 .navbar-default .navbar-brand {
   color: #ffffff;
@@ -69,7 +81,7 @@
   color: #ffffff;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu {
- background-color: #108ea9;
+ background-color: #A2A384;
  margin: 0;
  margin-right: 3px;
  
@@ -81,18 +93,19 @@
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
   color: #ffffff;
-  background-color: #006e79;
+  background-color: #A2A384;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
-  background-color: #006e79;
+  background-color: #A2A384;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #006e79;
+  background-color: #5A6A62;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #ffffff;
-  background-color: #006e79;
+  background-color: #A2A384;
+  border-style: none;
 }
 .navbar-default .navbar-toggle {
   border-style: none;
@@ -101,7 +114,7 @@
     border-radius: 25px;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-  background-color: #006e79;
+  background-color: #A2A384;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #ffffff;
@@ -153,7 +166,8 @@
   #right-nav li{
       text-align: center;
       font-size: 20px;
-      background-color: #006e79;
+      font-weight: 400;
+      background-color: #A2A384;
       padding:0;
       margin-top: 10px;
       margin-left: 1%;
@@ -167,6 +181,13 @@
       height: 35px;
       
   }
+    
+  .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+      color: #ffffff;
+      background-color: #828364;
+      border-bottom: dashed #5A6A62 4px;
+  }
+    
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
   }

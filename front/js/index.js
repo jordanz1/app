@@ -14,6 +14,9 @@ function learnInventor(){
     alert("inventor");   
 }
 
+function showMoreEvents(){
+    alert("more events"); 
+}
 
 var typeTriggered = false;
 
