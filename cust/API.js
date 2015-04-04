@@ -50,7 +50,7 @@ function homepageAPI(){
     s.on('autocomplete', function(query){
         console.log(query);
         
-        var someArr = [query];
+        var someArr = [{ name: query, link: query+query }];
         
         s.emit('autocompleteResult', someArr );
     });

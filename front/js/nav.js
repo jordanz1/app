@@ -22,7 +22,7 @@ if(connected === true){
         
         //add in new results
         for(var i=0; i<autoArr.length; i++){ 
-            $('#search-drop').append('<li><a href="/search/' +autoArr[i].link+ '">' +autoArr[i].name+ '</a><li>');
+            $('#search-drop').append('<li><a href="' +autoArr[i].link+ '">' +autoArr[i].name+ '</a><li>');
         };
     });  
 };
