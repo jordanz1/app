@@ -49,7 +49,10 @@ function homepageAPI(){
     
     s.on('autocomplete', function(query){
         console.log(query);
-        s.emit('autocompleteResult', query );
+        
+        var someArr = [query];
+        
+        s.emit('autocompleteResult', someArr );
     });
     
     

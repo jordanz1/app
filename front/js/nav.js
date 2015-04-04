@@ -15,7 +15,7 @@ $('#search').keypress(function(){
 
 if(connected === true){
     //Autocomplete search results in nav bar event
-    s.on('searchAutoResults', function(autoArr){
+    s.on('autocompleteResult', function(autoArr){
         
         //Get rid of existing results
         $('#search-drop li').remove();  
