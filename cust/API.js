@@ -305,7 +305,7 @@ function getLoginDetails(email, cb){
     
     ddb.query(queryObj, function(err, res){
         if(!err){
-            console.log( res.Items[email].password.S +"\n"+ res.Items[email].type.S );
+            console.log( res.Items['0'].password.S );
             cb(null, res.Items[email].password.S, res.Items[email].type.S );
         }else{
             cb("couldn't retrieve password.", null, null);
