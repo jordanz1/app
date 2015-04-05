@@ -300,7 +300,7 @@ function handleToken(email, cb){
     
     crypto.randomBytes(TOKEN_LENGTH, function(err, token) {
         if(!err){
-            cb(null, token);   
+            cb(null, token.toString() );   
         }else{
             log(err);
             cb("Problem Generating token", null);
