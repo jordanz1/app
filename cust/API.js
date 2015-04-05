@@ -299,10 +299,14 @@ function getLoginDetails(email, cb){
     ddb.query(queryObj, function(err, res){
 
         if(!err){
-            cb(null, res.Items['0'].password.S, res.Items['0'].type.S );
-        }else{
-            cb("couldn't retrieve password.", null, null);
+            try{
+                cb(null, res.Items['0'].password.S, res.Items['0'].type.S );
+            }catch(err){
+                cb("couldn't retrieve password.", null, null);
             log(err);
+            }
+        }else{
+            
         };
         
     });
