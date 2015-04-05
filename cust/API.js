@@ -295,7 +295,7 @@ function getLoginDetails(email, cb){
     var queryObj = {
         TableName: 'userData',
         KeyConditions:{
-            id:{
+            email:{
                 AttributeValueList: [{S: email}],
                 ComparisonOperator:'EQ'
             }
