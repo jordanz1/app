@@ -45,8 +45,24 @@ body{
     margin-bottom: 10px;
 }
 
+.checkbox-inline{
+    margin-left: 0;   
+}
+
+#remember{
+    position: relative;
+    width:25px;
+    white-space: nowrap;
+    color: white;
+    font-size: 18px;
+}
+
+#rememberBox{
+    position:absolute;top:5px; right:0;   
+}
+
 #reset{
-    float: right;
+    margin-top: 5px;
     font-size: 18px;  
     color: #B9E5FF;
 }

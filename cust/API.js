@@ -234,36 +234,43 @@ function kindaSQL_updateSignup(amount, cb){
 function loginAPI(){
     
     s.on('verifyLogin', function(loginObj){
-        
-        console.log(loginObj.email);
-        
-        getLoginDetails(loginObj.email, function(err, pass, type){
-            if(!err){
+        try{
+            
+            console.log(loginObj.email);
+            console.log(loginObj.password);
+            getLoginDetails(loginObj.email, function(err, pass, type){
+                if(!err){
 
-                    bcrypt.compare(loginObj.pass, pass, function(err, result){
+                        bcrypt.compare(loginObj.pass, pass, function(err, result){
 
-                        if(result === true){
-                            
-                            handleToken(loginObj.email, function(err, token){
-                                if(!err){
-                                    console.log(token);
+                            if(result === true){
 
-                                    s.emit('verifyLoginResult', {verified: true, userType: type, token: token} );
+                                handleToken(loginObj.email, function(err, token){
+                                    if(!err){
+                                        console.log(token);
 
-                                    updateLoginTime(loginObj.email);
-                                }else{
-                                    s.emit('verifyLoginResult', {verified: false, reason: "Were sorry, but there seems to be a problem with our server. Please try again."});
-                                };
-                            });
-                        }else{
-                            s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
-                        };
-                    });
-                
-            }else{
-                s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
-            };
-        });
+                                        s.emit('verifyLoginResult', {verified: true, userType: type, token: token} );
+
+                                        updateLoginTime(loginObj.email);
+                                    }else{
+                                        s.emit('verifyLoginResult', {verified: false, reason: "Were sorry, but there seems to be a problem with our server. Please try again."});
+                                    };
+                                });
+                            }else{
+                                s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
+                            };
+                        });
+
+                }else{
+                    s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
+                };
+            });
+            
+            
+        }catch(err){
+            log(err);  
+        };
+            
     });
     
 };
@@ -295,7 +302,7 @@ function getLoginDetails(email, cb){
 };
 
 function handleToken(email, cb){
-    var TOKEN_LENGTH = 64;
+    var TOKEN_LENGTH = 48;
  
     
     crypto.randomBytes(TOKEN_LENGTH, function(err, buff) {

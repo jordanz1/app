@@ -1,9 +1,7 @@
-   function attemptLogin(){
+function attemptLogin(){
         
        if(connected === true){
-           
-           
-           
+            
             if( $('#loginEmail').val() != "" ){
                 if( $('#loginPass').val() != ""){
                     
@@ -32,7 +30,11 @@
             }
        }else{
             $('#result').text("Sorry, we were unable to send your request to our server. Please try again later.");
-       };
-       
-       
-   };
+       }; 
+};
+
+$('#loginPass').keypress(function(e){
+    if(e.which == 13) {
+        attemptLogin();
+    }; 
+});

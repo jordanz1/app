@@ -181,7 +181,7 @@ body{
     
   .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
       color: #ffffff;
-      background-color: #828364;
+      background-color: #3A4A42;
       border-bottom: dashed #5A6A62 4px;
   }
     
@@ -193,6 +193,6 @@ body{
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color:#006e79;
+    background-color:#5A6A62;
   }
 }
