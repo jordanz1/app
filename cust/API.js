@@ -320,11 +320,9 @@ function getLoginDetails(email, cb){
 function checkLogin(actual, hashed, cb){
     console.log("checking:\n" + actual + "\n" + hashed);
     
-    if(actual == hashed){
-        cb(true);   
-    }else{
-        cb(false);
-    }
+    bcrypt.compare(actual, hashed, function(result){
+        cb(result); 
+    });
 };
 
 //Mundane
