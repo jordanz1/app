@@ -295,7 +295,7 @@ function getLoginDetails(email, cb){
 };
 
 function handleToken(email, cb){
-    var TOKEN_LENGTH = 48;
+    var TOKEN_LENGTH = 32;
  
     
     crypto.randomBytes(TOKEN_LENGTH, function(err, buff) {
