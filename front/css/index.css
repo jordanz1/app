@@ -98,7 +98,7 @@ body{
 #event-jumbo{
     padding: 17px;
     padding-bottom: 25px;
-    background-color: #7F6658;
+    background-color: #59323C;
     color: white;
     font-family: 'Lora', serif;
     overflow: hidden;
@@ -107,13 +107,23 @@ body{
     max-width: 1200px;
 }
 
+#event-descript{
+    padding: 15px;
+    padding-bottom: 25px;
+    margin-bottom: inherit;
+}
+
+
+
 #event-button{
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-decoration: none;
     border-style: solid;
     border-color: #666;
     border-width: 1px;
-    width:50%;
-    max-width: 220px;
-    height:40px;
     font-size: 18px;
     background-color: white;
     color: #4F3628; 
@@ -132,7 +142,7 @@ body{
     box-shadow:         3px 3px 15px 15px #ccc;
     width: 98%;
     max-width: 850px;
-    background-color:#ED7E30;
+    background-color:#E3670B;
     color:white;
     font-family: 'Lora', serif;
     text-align: center;

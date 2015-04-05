@@ -8,48 +8,57 @@ body{
 }
 
 #login-jumbo{
-    background-color: #108ea9;
+    background-color: #3A4A42;
     max-width: 700px;
+    padding-bottom: 23px;
 }
 
 #login-jumbo h1{
     color: white;
     font-weight: 400;
-    text-shadow: -1px 0 #777, 0 1px #777, 1px 0 #777, 0 -1px #777;
     
 }
 
-#legend{
-    font-size: 25px;
+#result{
+    font-size: 20px; 
+    color: white;
 }
 
-#loginResult{
-    font-size: 20px;   
+#jumbo-body{
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 #login-jumbo label{
+    color: white;
     font-size: 25px;
     margin-top: 10px;
 }
 
 #login-jumbo input{
-    max-width: 500px;
+    width: 100%;
     border-style: solid;
     border-color: #777;
     border-width: 1px;
     text-align: center;
-    margin-top: 3%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#reset{
+    float: right;
+    font-size: 18px;  
+    color: #B9E5FF;
 }
 
 #loginButton{
     background-color: white;
     font-size: 20px;
-    margin-top: 23px;
+    margin-top: 15px;
     border-style: solid;
     border-color: #777;
     border-width: 1px;
     width: 100%;
-    max-width: 500px;
     height: 50px;
 }
 

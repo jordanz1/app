@@ -1,47 +1,45 @@
-var AWS = require('aws-sdk');
-var conf = require('./cust/conf.js');
+var io = require('socket.io');
+var http = require('http');
+var fs = require('fs');
 
-AWS.config.update({region: 'us-east-1'});
 
-var ddb;
-
-conf.location('/info', function(err){
-    if(!err){
-        conf.add('dynamoID');
-        conf.add('dynamoPass');
+var server = http.createServer(function(req, res){
+    res.writeHead(200);
+    
+    fs.readFile('./front/test.html', function(err, data){
         
-        conf(function(err, config){
+        if(!err){
+            console.log("sending html");
+            res.end(data);
             
-            AWS.config.accessKeyId = config.dynamoID;
-            AWS.config.secretAccessKey = config.dynamoPass;
-
-            ddb = new AWS.DynamoDB(); 
-
-            continueIt();
-            
-        });
-    }
+        }else{
+            console.log(err);  
+        };
+        
+    });
 });
 
+server.listen(80, function(err){
+    console.log("Listening on 80"); 
+});
 
-function continueIt(){
+var s = io.listen(server);
 
-    var params = {
-        TableName: 'signup',
-        Key:{
-            id:{S: '0'}
-        },
-        AttributeUpdates: {
-            amount:{
-                Action: 'PUT',
-                Value: {'N': '1042762872341'}
-            }
-        }
-    };
+s.sockets.on('connection', function(socket){
     
-    ddb.updateItem(params, function(err, data) {
-        if(err){
-            //log(err)
+    
+    fs.readFile('./front/test.jpg', "base64", function(err, data){
+        
+        if(!err){
+            console.log("sending img");
+            
+            socket.emit('img', data);
+            
+        }else{
+            console.log(err);  
         };
+        
     });
-}
+    
+    
+});

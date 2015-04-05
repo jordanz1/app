@@ -25,6 +25,8 @@ function api( sAPI, s3API, ddbAPI, oTierAPI ){
             
             homepageAPI();
             
+        }else if(type == 'login'){
+            loginAPI();  
         };
     });
 };
@@ -222,16 +224,23 @@ function kindaSQL_updateSignup(amount, cb){
                         }else{
                             cb(true);  
                         };
-                    });
-                
-                
-                
-                
+                    }); 
             };
         });
- 
 };
 
+
+function loginAPI(){
+    
+    s.on('verifyLogin', function(loginObj){
+        
+        console.log(loginObj.email);
+        console.log(loginObj.pass);
+        
+        s.emit('verifyLoginResult', true);
+    });
+    
+};
 
 //Mundane
 

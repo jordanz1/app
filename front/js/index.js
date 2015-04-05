@@ -5,13 +5,16 @@ $(".dropdown-menu li a").click(function(){
 
 
 function learnCohort(){
-    alert("cohorts");   
+
+    $(window).scrollTop( $("#cohort").offset().top );   
 }
 function learnEvent(){
-    alert("events");   
+    
+    $(window).scrollTop( $("#event").offset().top );  
 }
 function learnInventor(){
-    alert("inventor");   
+    
+    $(window).scrollTop( $("#inventor").offset().top );
 }
 
 function showMoreEvents(){

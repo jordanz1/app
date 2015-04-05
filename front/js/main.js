@@ -70,6 +70,5 @@ function socketTrigger(tierName){
         connected = true;
         
         s.emit('pageType', pageType);
-        
     });   
 };

@@ -20,7 +20,7 @@ body{
 }
 
 #brand:hover{
-    background-color:#A2A384;
+    background-color:#3A4A42;
 }
 
 #search{
@@ -81,9 +81,7 @@ body{
   color: #ffffff;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu {
- background-color: #A2A384;
- margin: 0;
- margin-right: 3px;
+ background-color: #3A4A42;
  
  font-size: 17px;
 }
@@ -93,10 +91,10 @@ body{
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
   color: #ffffff;
-  background-color: #A2A384;
+  background-color: #3A4A42;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
-  background-color: #A2A384;
+  background-color: #3A4A42;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #ffffff;
@@ -104,7 +102,7 @@ body{
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #ffffff;
-  background-color: #A2A384;
+  background-color: #3A4A42;
   border-style: none;
 }
 .navbar-default .navbar-toggle {
@@ -114,7 +112,7 @@ body{
     border-radius: 25px;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-  background-color: #A2A384;
+  background-color: #3A4A42;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #ffffff;
@@ -167,8 +165,7 @@ body{
       text-align: center;
       font-size: 20px;
       font-weight: 400;
-      background-color: #A2A384;
-      padding:0;
+      background-color: #3A4A42;
       margin-top: 10px;
       margin-left: 1%;
       margin-right: 1%;

@@ -25,20 +25,23 @@
                 
                 <h1><span style="font-family: 'Kaushan Script', cursive;">Architech</span></h1>
                 
-                <div id="legend">
-                        <legend>Please Log In below.</legend>
-                </div>
+                
+                <legend></legend>
+                
                     
-                <div class="control-group">
-                    <p id="loginResult"></p>
+                <div class="control-group container" id="jumbo-body">
+                    <p id="result"></p>
                     <label class="form-label">Email:</label>
                     <input type="text" class="form-control" id="loginEmail" placeholder="example@example.org" >
-                    <label class="form-label">Password</label>
+                    <label class="form-label">Password:</label>
                     <input type="password" class="form-control"id="loginPass" placeholder="password" >
+                    <a href="/reset/" id="reset" >Forgot your password?</a>
                     <button id="loginButton" onClick="attemptLogin();" >Log In!</button>
-                
+                    
                 </div>
-
+                
+                
+                
             </div></center>
         </div>
 
@@ -46,7 +49,11 @@
             
         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script>var s, connected=false;</script>
+        <script>
+            var s,
+            connected=false,
+            pageType='login';
+        </script>
         <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
         <script src="/js/main.js"></script>
         <script src="/js/login.js"></script>
