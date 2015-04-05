@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 bcrypt.genSalt(13, function(error, salt){
     
     
-    bcrypt.hash('password', saltor, function(err, hash){
+    bcrypt.hash('password', salt, function(err, hash){
         console.log(hash +"\n");
         
         
