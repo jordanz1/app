@@ -135,7 +135,7 @@ function submitSignup(data){
                                     
                                      'TableName': 'signup',
                                      'Item': item
-                                }, function(err, data) {
+                                }, function(err) {
                                      if(err){
                                         s.emit('signUpReceived', false);
                                          
@@ -244,6 +244,9 @@ function loginAPI(){
                         console.log(type);
                         if(result === true){
                             s.emit('verifyLoginResult', {verified: true, userType: type, token: "ashdgjadgssa"} );
+                            
+                            updateLoginTime(email);
+                            
                         }else{
                             s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
                         };
@@ -288,6 +291,30 @@ function checkLogin(actual, hashed, cb){
     bcrypt.compare(actual, hashed, function(err, result){
         console.log(result);
         cb(result); 
+    });
+};
+
+function updateLoginTime(email){
+    
+     var updateObj = {
+        TableName: 'userData',
+        Key:{
+            email:{S: email}
+        },
+        AttributeUpdates: {
+            lastLogin:{
+                Action: 'PUT',
+                Value: {'N': new Date().getTime() }
+            }   
+        }
+    };
+    
+    ddb.putItem(updateObj, function(err){
+        
+        if(err){
+            
+            log(err);  
+        };
     });
 };
 
