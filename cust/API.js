@@ -234,6 +234,9 @@ function kindaSQL_updateSignup(amount, cb){
 function loginAPI(){
     
     s.on('verifyLogin', function(loginObj){
+        
+        console.log("Verify login requested.");
+        
         try{
             
             console.log(loginObj.email);
@@ -251,19 +254,23 @@ function loginAPI(){
                                         console.log(token);
 
                                         s.emit('verifyLoginResult', {verified: true, userType: type, token: token} );
+                                        console.log("Verify login sent back.");
 
                                         updateLoginTime(loginObj.email);
                                     }else{
                                         s.emit('verifyLoginResult', {verified: false, reason: "Were sorry, but there seems to be a problem with our server. Please try again."});
+                                        console.log("Verify login sent back.");
                                     };
                                 });
                             }else{
                                 s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
+                                console.log("Verify login sent back.");
                             };
                         });
 
                 }else{
                     s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
+                    console.log("Verify login sent back.");
                 };
             });
             

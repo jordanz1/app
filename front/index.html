@@ -48,7 +48,19 @@
                                 <li><a href="/techs/">Technologies</a></li>
                             </ul>
                         </li>
-                        <li><a href="/login/">Log In</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Login</a>
+                            <div class="dropdown-menu" id="loginMenu">
+                                 <form class="form">
+                                    <label>Email</label>
+                                    <input type="text" id="loginEmail">
+                                    <label>Password</label>
+                                    <input type="password" id="loginPass">
+                                    <p id="loginResult" ></p>
+                                    <button onClick="verifyLogin();" id="loginButton">Login</button>
+                                 </form>
+                            </div>
+                        </li>
                     </ul>
               </div>
             </nav>

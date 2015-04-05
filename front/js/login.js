@@ -14,22 +14,22 @@ function attemptLogin(){
                         if(returnObj.verified === true){
                             
                             
-                            window.location.href = "http://" + domain + "/" + returnObj.userType;
+                            window.location.href = "/" + returnObj.userType;
                         }else{
-                            $('#result').text(returnObj.reason);
+                            $('#loginResult').text(returnObj.reason);
                         };
                         
                     });
                     
                     
                 }else{
-                    $('#result').text("Please enter a password.");
+                    $('#loginResult').text("Please enter a password.");
                 }
             }else{
-                $('#result').text("Please enter an email address.");
+                $('#loginResult').text("Please enter an email address.");
             }
        }else{
-            $('#result').text("Sorry, we were unable to send your request to our server. Please try again later.");
+            $('#loginResult').text("Sorry, we were unable to send your request to our server. Please try again later.");
        }; 
 };
 
