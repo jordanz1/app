@@ -304,16 +304,15 @@ function getLoginDetails(email, cb){
     };
     
     ddb.query(queryObj, function(err, res){
-        console.log(res.Items['0']);
-        /**
+
         if(!err){
             console.log( res.Items['0'].password.S );
-            cb(null, res.Items[email].password.S, res.Items[email].type.S );
+            cb(null, res.Items['0'].password.S, res.Items['0'].type.S );
         }else{
             cb("couldn't retrieve password.", null, null);
             log(err);
         };
-        **/
+        
     });
     
 };
