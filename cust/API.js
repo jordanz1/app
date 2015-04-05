@@ -247,7 +247,7 @@ function loginAPI(){
 
                     bcrypt.compare(loginObj.pass, pass, function(err, result){
                         console.log(result);
-                        
+                        console.log(type);
                         if(result === true){
                             s.emit('verifyLoginResult', {verified: true, userType: type, token: "ashdgjadgssa"} );
                         }else{
