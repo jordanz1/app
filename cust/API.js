@@ -307,7 +307,7 @@ function handleToken(email, cb){
             }
         });
     }; 
-});
+};
 
 function updateLoginTime(email){
     
