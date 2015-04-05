@@ -318,6 +318,8 @@ function getLoginDetails(email, cb){
 };
 
 function checkLogin(actual, hashed, cb){
+    console.log("checking:\n" + actual + "\n" + hashed);
+    
     if(actual == hashed){
         cb(true);   
     }else{
