@@ -309,7 +309,7 @@ function updateLoginTime(email){
         }
     };
     
-    ddb.putItem(updateObj, function(err){
+    ddb.updateItem(updateObj, function(err){
         
         if(err){
             
