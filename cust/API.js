@@ -235,7 +235,7 @@ function loginAPI(){
     s.on('verifyLogin', function(loginObj){
         
         console.log(loginObj.email);
-        console.log(loginObj.pass);
+        console.log("'" + loginObj.pass + "'" );
         
         var actualPass = "";
         var hashedPass = "";
