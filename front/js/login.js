@@ -16,7 +16,7 @@
                         if(returnObj.verified === true){
                             
                             
-                            window.location.href = "http://" + domain + "/" + returnObj.type;
+                            window.location.href = "http://" + domain + "/" + returnObj.userType;
                         }else{
                             $('#result').text(returnObj.reason);
                         };

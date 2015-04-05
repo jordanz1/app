@@ -235,12 +235,6 @@ function loginAPI(){
     s.on('verifyLogin', function(loginObj){
         
         console.log(loginObj.email);
-        console.log("'" + loginObj.pass + "'" );
-        
-        var actualPass = "";
-        var hashedPass = "";
-        var userType = "";
-        var errFound = false;
         
         getLoginDetails(loginObj.email, function(err, pass, type){
             if(!err){
@@ -256,7 +250,6 @@ function loginAPI(){
                     });
                 
             }else{
-                errFound = true;
                 s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
             };
         });
