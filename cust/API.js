@@ -306,7 +306,6 @@ function getLoginDetails(email, cb){
     ddb.query(queryObj, function(err, res){
 
         if(!err){
-            console.log( res.Items['0'].password.S );
             cb(null, res.Items['0'].password.S, res.Items['0'].type.S );
         }else{
             cb("couldn't retrieve password.", null, null);
@@ -318,9 +317,9 @@ function getLoginDetails(email, cb){
 };
 
 function checkLogin(actual, hashed, cb){
-    console.log("checking:\n" + actual + "\n" + hashed);
     
-    bcrypt.compare(actual, hashed, function(result){
+    bcrypt.compare(actual, hashed, function(err, result){
+        console.log(result);
         cb(result); 
     });
 };
