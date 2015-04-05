@@ -244,48 +244,22 @@ function loginAPI(){
         
         getLoginDetails(loginObj.email, function(err, pass, type){
             if(!err){
-                actualPass = pass;
-                if(hashedPass != ""){
-                    checkLogin(actualPass, hashedPass, function(result){
+
+                    bcrypt.compare(loginObj.pass, pass, function(err, result){
+                        console.log(result);
+                        
                         if(result === true){
                             s.emit('verifyLoginResult', {verified: true, userType: userType, token: "ashdgjadgssa"} );
                         }else{
                             s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
                         };
                     });
-                };
                 
             }else{
                 errFound = true;
                 s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
             };
         });
-       bcrypt.genSalt(13, function(err, salt){
-           
-           
-            bcrypt.hash(loginObj.pass, salt, function(err, hash){
-                if(!err){
-                    hashedPass = hash;
-                    
-                    if(actualPass != ""){
-                        
-                        checkLogin(actualPass, hashedPass, function(result){
-                            
-                            if(result === true){
-                                s.emit('verifyLoginResult', {verified: true, userType: userType, token: "ashdgjadgssa"} );
-                            }else{
-                                s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
-                            };
-                        });
-                    };
-                    
-                }else{
-                    errFound = true;
-                    s.emit('verifyLoginResult', {verified: false, reason: "Server had trouble checking your password."});
-                };
-            });
-       });
-       
     });
     
 };
