@@ -1,4 +1,5 @@
 var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 var async = require('async');
 
 var start = new Date().getTime();
@@ -240,13 +241,20 @@ function loginAPI(){
             if(!err){
 
                     bcrypt.compare(loginObj.pass, pass, function(err, result){
-                        console.log(result);
-                        console.log(type);
+
                         if(result === true){
-                            s.emit('verifyLoginResult', {verified: true, userType: type, token: "ashdgjadgssa"} );
                             
-                            updateLoginTime(loginObj.email);
-                            
+                            handleToken(loginObj.email, function(err, token){
+                                if(!err){
+                                    console.log(token);
+
+                                    s.emit('verifyLoginResult', {verified: true, userType: type, token: token} );
+
+                                    updateLoginTime(loginObj.email);
+                                }else{
+                                    s.emit('verifyLoginResult', {verified: false, reason: "Were sorry, but there seems to be a problem with our server. Please try again."});
+                                };
+                            });
                         }else{
                             s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
                         };
@@ -286,13 +294,20 @@ function getLoginDetails(email, cb){
     
 };
 
-function checkLogin(actual, hashed, cb){
-    
-    bcrypt.compare(actual, hashed, function(err, result){
-        console.log(result);
-        cb(result); 
-    });
-};
+function handleToken(email, cb){
+    var TOKEN_LENGTH = 32;
+ 
+    exports.createToken = function(callback) {
+        crypto.randomBytes(TOKEN_LENGTH, function(err, token) {
+            if(!err){
+                cb(null, token);   
+            }else{
+                log(err);
+                cb("Problem Generating token", null);
+            }
+        });
+    }; 
+});
 
 function updateLoginTime(email){
     
