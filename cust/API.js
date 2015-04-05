@@ -237,9 +237,90 @@ function loginAPI(){
         console.log(loginObj.email);
         console.log(loginObj.pass);
         
-        s.emit('verifyLoginResult', true);
+        var actualPass = "";
+        var hashedPass = "";
+        var userType = "";
+        var errFound = false;
+        
+        getLoginDetails(loginObj.email, function(err, pass, type){
+            if(!err){
+                actualPass = pass;
+                if(hashedPass != ""){
+                    checkLogin(actualPass, hashedPass, function(result){
+                        if(result === true){
+                            s.emit('verifyLoginResult', {verified: true, userType: userType, token: "ashdgjadgssa"} );
+                        }else{
+                            s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
+                        };
+                    });
+                };
+                
+            }else{
+                errFound = true;
+                s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
+            };
+        });
+       bcrypt.genSalt(13, function(err, salt){
+           
+           
+            bcrypt.hash(loginObj.pass, salt, function(err, hash){
+                if(!err){
+                    hashedPass = hash;
+                    
+                    if(actualPass != ""){
+                        
+                        checkLogin(actualPass, hashedPass, function(result){
+                            
+                            if(result === true){
+                                s.emit('verifyLoginResult', {verified: true, userType: userType, token: "ashdgjadgssa"} );
+                            }else{
+                                s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
+                            };
+                        });
+                    };
+                    
+                }else{
+                    errFound = true;
+                    s.emit('verifyLoginResult', {verified: false, reason: "Server had trouble checking your password."});
+                };
+            });
+       });
+       
     });
     
+};
+
+function getLoginDetails(email, cb){
+    
+    var queryObj = {
+        TableName: 'userData',
+        KeyConditions:{
+            id:{
+                AttributeValueList: [{S: email}],
+                ComparisonOperator:'EQ'
+            }
+        },
+        AttributesToGet: ['password', 'type']
+    };
+    
+    ddb.query(queryObj, function(err, res){
+        if(!err){
+            console.log( res.Items[email].password.S +"\n"+ res.Items[email].type.S );
+            cb(null, res.Items[email].password.S, res.Items[email].type.S );
+        }else{
+            cb("couldn't retrieve password.", null, null);
+            log(err);
+        };
+    });
+    
+};
+
+function checkLogin(actual, hashed, cb){
+    if(actual == hashed){
+        cb(true);   
+    }else{
+        cb(false);
+    }
 };
 
 //Mundane

@@ -13,12 +13,12 @@
                     
                     s.on('verifyLoginResult', function(returnObj){
                         
-                        if(returnObj === true){
+                        if(returnObj.verified === true){
                             
                             
-                            window.location.href = "http://" + domain + "/app";
+                            window.location.href = "http://" + domain + "/" + returnObj.type;
                         }else{
-                            $('#result').text("Either your email address or password were incorrect.");
+                            $('#result').text(returnObj.reason);
                         };
                         
                     });
