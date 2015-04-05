@@ -304,7 +304,7 @@ function updateLoginTime(email){
         AttributeUpdates: {
             lastLogin:{
                 Action: 'PUT',
-                Value: {'N': new Date().getTime() }
+                Value: {'N': new Date().getTime().toString() }
             }   
         }
     };
