@@ -58,7 +58,7 @@ function homepageAPI(){
         s.emit('autocompleteResult', "You typed something, right?" );
     });
     
-    
+    loginAPI();
 };
 
 //HOMEPAGE

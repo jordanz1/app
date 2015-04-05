@@ -43,7 +43,8 @@ $(document).ready(function() {
 
 function verifyLogin(){
     
-    alert("hi");
+   
+    $('#loginResult').text("");
     
        if(connected === true){
             
@@ -53,6 +54,8 @@ function verifyLogin(){
                     var loginObj = { email: $('#loginEmail').val(), pass: $('#loginPass').val() };
                     
                     s.emit('verifyLogin', loginObj);
+                    
+                     alert( $('#loginEmail').val() + "\n" +  $('#loginPass').val() );
                     
                     s.on('verifyLoginResult', function(returnObj){
                         
