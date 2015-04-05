@@ -237,7 +237,8 @@ function loginAPI(){
         try{
             
             console.log(loginObj.email);
-            console.log(loginObj.password);
+            console.log(loginObj.pass);
+            
             getLoginDetails(loginObj.email, function(err, pass, type){
                 if(!err){
 
