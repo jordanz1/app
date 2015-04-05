@@ -304,6 +304,8 @@ function getLoginDetails(email, cb){
     };
     
     ddb.query(queryObj, function(err, res){
+        console.log(res);
+        /**
         if(!err){
             console.log( res.Items['0'].password.S );
             cb(null, res.Items[email].password.S, res.Items[email].type.S );
@@ -311,6 +313,7 @@ function getLoginDetails(email, cb){
             cb("couldn't retrieve password.", null, null);
             log(err);
         };
+        **/
     });
     
 };
