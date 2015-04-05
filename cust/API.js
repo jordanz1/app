@@ -295,12 +295,14 @@ function getLoginDetails(email, cb){
 };
 
 function handleToken(email, cb){
-    var TOKEN_LENGTH = 32;
+    var TOKEN_LENGTH = 48;
  
     
-    crypto.randomBytes(TOKEN_LENGTH, function(err, token) {
+    crypto.randomBytes(TOKEN_LENGTH, function(err, buff) {
+        var token = buf.toString('hex');
+        
         if(!err){
-            cb(null, token.toString() );   
+            cb(null, token );   
         }else{
             log(err);
             cb("Problem Generating token", null);
