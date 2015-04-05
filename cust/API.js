@@ -254,23 +254,23 @@ function loginAPI(){
                                         console.log(token);
 
                                         s.emit('verifyLoginResult', {verified: true, userType: type, token: token} );
-                                        console.log("Verify login sent back.");
+                                        
 
                                         updateLoginTime(loginObj.email);
                                     }else{
                                         s.emit('verifyLoginResult', {verified: false, reason: "Were sorry, but there seems to be a problem with our server. Please try again."});
-                                        console.log("Verify login sent back.");
+                                       
                                     };
                                 });
                             }else{
                                 s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
-                                console.log("Verify login sent back.");
+                               
                             };
                         });
 
                 }else{
-                    s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
-                    console.log("Verify login sent back.");
+                    s.emit('verifyLoginResult', {verified: false, reason: err});
+                    
                 };
             });
             
@@ -302,7 +302,7 @@ function getLoginDetails(email, cb){
             try{
                 cb(null, res.Items['0'].password.S, res.Items['0'].type.S );
             }catch(err){
-                cb("couldn't retrieve password.", null, null);
+                cb("Either your email or password were incorrect.", null, null);
             log(err);
             }
         }else{

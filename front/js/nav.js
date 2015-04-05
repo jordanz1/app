@@ -64,8 +64,8 @@ function verifyLogin(){
                             
                             window.location.href = "/" + returnObj.userType;
                         }else{
-                            //$('#loginResult').text(returnObj.reason);
-                            $('#loginResult').text("failure");
+                            $('#loginResult').text(returnObj.reason);
+                            
                         };
                         
                     });
