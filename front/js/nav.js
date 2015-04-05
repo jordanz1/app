@@ -55,7 +55,6 @@ function verifyLogin(){
                     
                     s.emit('verifyLogin', loginObj);
                     
-                     alert( $('#loginEmail').val() + "\n" +  $('#loginPass').val() );
                     
                     s.on('verifyLoginResult', function(returnObj){
                         

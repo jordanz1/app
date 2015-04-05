@@ -6,15 +6,15 @@ $(".dropdown-menu li a").click(function(){
 
 function learnCohort(){
 
-    $(window).scrollTop( $("#cohort").offset().top );   
+    $(window).scrollTop( $("#cohort").offset().top - 15 );   
 }
 function learnEvent(){
     
-    $(window).scrollTop( $("#event").offset().top );  
+    $(window).scrollTop( $("#event").offset().top - 15);  
 }
 function learnInventor(){
     
-    $(window).scrollTop( $("#inventor").offset().top );
+    $(window).scrollTop( $("#inventor").offset().top - 15 );
 }
 
 function showMoreEvents(){
