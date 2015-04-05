@@ -299,7 +299,7 @@ function handleToken(email, cb){
  
     
     crypto.randomBytes(TOKEN_LENGTH, function(err, buff) {
-        var token = buf.toString('hex');
+        var token = buff.toString('hex');
         
         if(!err){
             cb(null, token );   
