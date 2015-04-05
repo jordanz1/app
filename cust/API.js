@@ -245,7 +245,7 @@ function loginAPI(){
                         if(result === true){
                             s.emit('verifyLoginResult', {verified: true, userType: type, token: "ashdgjadgssa"} );
                             
-                            updateLoginTime(email);
+                            updateLoginTime(loginObj.email);
                             
                         }else{
                             s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
