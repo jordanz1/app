@@ -249,7 +249,7 @@ function loginAPI(){
                         console.log(result);
                         
                         if(result === true){
-                            s.emit('verifyLoginResult', {verified: true, userType: userType, token: "ashdgjadgssa"} );
+                            s.emit('verifyLoginResult', {verified: true, userType: type, token: "ashdgjadgssa"} );
                         }else{
                             s.emit('verifyLoginResult', {verified: false, reason: "Either your email or password were incorrect."});
                         };
