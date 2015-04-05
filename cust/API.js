@@ -304,7 +304,7 @@ function getLoginDetails(email, cb){
     };
     
     ddb.query(queryObj, function(err, res){
-        console.log(res);
+        console.log(res.Items['0']);
         /**
         if(!err){
             console.log( res.Items['0'].password.S );
