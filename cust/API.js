@@ -297,16 +297,16 @@ function getLoginDetails(email, cb){
 function handleToken(email, cb){
     var TOKEN_LENGTH = 32;
  
-    exports.createToken = function(callback) {
-        crypto.randomBytes(TOKEN_LENGTH, function(err, token) {
-            if(!err){
-                cb(null, token);   
-            }else{
-                log(err);
-                cb("Problem Generating token", null);
-            }
-        });
-    }; 
+    
+    crypto.randomBytes(TOKEN_LENGTH, function(err, token) {
+        if(!err){
+            cb(null, token);   
+        }else{
+            log(err);
+            cb("Problem Generating token", null);
+        };
+    });
+
 };
 
 function updateLoginTime(email){
