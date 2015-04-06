@@ -356,15 +356,16 @@ function handleToken(email, cb){
             
             var length = 300;
             
-            var tokenLength = new Date().getTime() + length;
-            
-            cb(null, token, tokenLength ); 
+            var tokenLength = new Date().getTime() + length; 
             
             tokenStore[token] = { expire: tokenLength, email: email };
                
             if(oTier){
+                log("Sending token to other tier.");
                 oTier.emit('newToken', { expire: tokenLength, email: email });
             };
+            
+            cb(null, token, tokenLength );
             
         }else{
             log(err);
