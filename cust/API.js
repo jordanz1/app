@@ -57,7 +57,7 @@ function api( sAPI, s3API, ddbAPI, oTierAPI, tokenStoreAPI ){
                         }
                     }
                 });
-            };
+            });
         };
     });
 };
