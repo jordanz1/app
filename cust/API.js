@@ -326,7 +326,7 @@ function handleToken(email, cb){
         
         if(!err){
             
-            var length = 30000;
+            var length = 300;
             
             var tokenLength = new Date().getTime() + length;
             
