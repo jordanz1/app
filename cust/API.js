@@ -362,7 +362,7 @@ function handleToken(email, cb){
                
             if(oTier){
                 log("Sending token to other tier.");
-                oTier.emit('newToken', { expire: tokenLength, email: email });
+                oTier.emit('newToken', { token: token, expire: tokenLength, email: email });
             };
             
             cb(null, token, tokenLength );
