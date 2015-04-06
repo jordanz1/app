@@ -81,29 +81,38 @@ function socketTrigger(tierName){
                 
                 var current = new Date().getTime();
                 
-                if(current > tokenLength+ 50000){
+                if(tokenLength != null && tokenLength != undefined){
                     
-                    window.location.href = "/";
-                }else{
+                    if(current > tokenLength){
 
-                    if(token){
+                        localStorage.setItem('token', null);
+                        localStorage.setItem('tokenLength', null);
                         
-                        s.emit('token', token);
-                        
-                        s.on('tokenResponse', function(returnBool){
-                            
-                            if(returnBool === true){
-                                goodToken = true;
-                            }else{
-                                window.location.href = "/";  
-                            };
-                            
-                        });
-                        
+                        window.location.href = "/";
                     }else{
 
-                        window.location.href = "/";  
+                        if(token){
+
+                            s.emit('token', token);
+
+                            s.on('tokenResponse', function(returnBool){
+
+                                if(returnBool === true){
+                                    goodToken = true;
+                                }else{
+                                    window.location.href = "/";  
+                                };
+
+                            });
+
+                        }else{
+
+                            window.location.href = "/";  
+                        };
                     };
+                    
+                }else{
+                    window.location.href = "/";
                 };
             };
         };
