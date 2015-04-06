@@ -253,8 +253,13 @@ function loginAPI(){
                                     if(!err){
                                         console.log(token);
 
-                                        s.emit('verifyLoginResult', {verified: true, userType: type, token: token} );
+                                        s.emit('verifyLoginResult', { verified: true, userType: type, token: token, email: loginObj.email } );
                                         
+                                        var tokenLength = 30000;
+                                        
+                                        var tokenExpire = new Date().getTime() + tokenLength;
+                                        
+                                        oTierAPI.emit('newToken', { token: token, email: email, tokenExpire });
 
                                         updateLoginTime(loginObj.email);
                                     }else{

@@ -62,6 +62,10 @@ body{
     margin:0;
 }
 
+#right-nav li:hover{
+    background-color:#3A4A42;    
+}
+
 #loginMenu{
    width: 300px;
 }
@@ -98,7 +102,7 @@ body{
     background-color: white;
     margin-top:10px;
     border-style: solid;
-    border-color: #777;
+    border-color: #777;#3A4A42;
     border-width: 1px;
     font-size: 20px;
     height: 37px;
