@@ -254,7 +254,7 @@ function loginAPI(){
 
                                         s.emit('verifyLoginResult', { verified: true, userType: type, token: token, email: loginObj.email } );
                                         
-                                        var tokenLength = 30000;
+                                        var tokenLength = 7200000;
                                         
                                         var tokenExpire = new Date().getTime() + tokenLength;
                                         

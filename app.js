@@ -161,9 +161,30 @@ function startSocket(server){
       
 
     });
-
+    
+    startTierSocket();
 };
 
+function startTierSocket(){
+    
+    if(tier == "tier1"){
+        oTier = io.listen(3000);
+        
+        oTier.sockets.on('connection', function(socket){
+            
+            console.log("Other tier connected.");
+            
+        });
+    }else if(tier == "tier2"){
+        //                       CHANGE TO HTTPS
+        oTierTestVar = ioClient.connect('http://tier1.' + domain);
+        
+        oTierTestVar.on('connect', function(){
+            oTier = oTierTestVar;
+            console.log("Other tier connected.");
+        });
+    };
+};
 
 
 function updateIP(){

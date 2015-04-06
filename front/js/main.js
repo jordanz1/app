@@ -68,7 +68,11 @@ function socketTrigger(tierName){
     s.on('connect', function(){
         
         connected = true;
-        
-        s.emit('pageType', pageType);
+        if(pageType != null){
+            s.emit('pageType', pageType);
+        };
+        if(token != null){
+            s.emit('tokenCheck', token);   
+        }
     });   
 };
