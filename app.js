@@ -176,6 +176,9 @@ function startTierSocket(){
             oTierConnected = true;
             log("Other tier connected.");
             
+            socket.on('disconnect', function(){
+                log("Other Tier Disconnected."); 
+            });
         });
     }else if(tier == "tier2"){
         //                       CHANGE TO HTTPS
@@ -185,6 +188,10 @@ function startTierSocket(){
             oTier = oTierTestVar;
             oTierConnected = true;
             log("Other tier connected.");
+        });
+        
+        oTier.on('disconnect', function(){
+            log("Other Tier Disconnected."); 
         });
     };
 };
