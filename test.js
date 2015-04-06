@@ -1,16 +1,15 @@
-var bcrypt = require('bcrypt');
+    var tokenStore = { a:{ expire: 0 }, ab:{ expire: new Date().getTime() } };
 
+if(tokenStore['a']){
+    console.log( tokenStore['a'] ); 
+}
 
-bcrypt.genSalt(13, function(error, salt){
-    
-    
-    bcrypt.hash('password', salt, function(err, hash){
-        console.log(hash +"\n");
+if(tokenStore['abc']){
+    console.log(tokenStore['abc'] );
+}else{
+    console.log("didnt pull thru");  
+};
         
-        
-        bcrypt.compare('password', hash, function(errorr, result){
-            console.log(result); 
-        });
-    });
-    
-});
+function log(message){
+    console.log(message);   
+}

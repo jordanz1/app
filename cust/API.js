@@ -26,8 +26,8 @@ function api( sAPI, s3API, ddbAPI, oTierAPI ){
             
             homepageAPI();
             
-        }else if(type == 'login'){
-            loginAPI();  
+        }else if(type == 'admin'){
+            adminAPI();  
         };
     });
 };
@@ -249,14 +249,10 @@ function loginAPI(){
 
                             if(result === true){
 
-                                handleToken(loginObj.email, function(err, token){
+                                handleToken(loginObj.email, function(err, token, tokenLength){
                                     if(!err){
 
-                                        s.emit('verifyLoginResult', { verified: true, userType: type, token: token, email: loginObj.email } );
-                                        
-                                        var tokenLength = 7200000;
-                                        
-                                        var tokenExpire = new Date().getTime() + tokenLength;
+                                        s.emit('verifyLoginResult', { verified: true, userType: type, token: token, tokenLength: tokenLength } );
                                         
                                         console.log(tokenExpire);
                                         console.log(token);
@@ -327,13 +323,24 @@ function handleToken(email, cb){
         var token = buff.toString('hex');
         
         if(!err){
-            cb(null, token );   
+            
+            var length = 30000;
+            
+            var tokenLength = new Date().getTime + length;
+            
+            cb(null, token,  ); 
+            
+            tokenStore[token] = { expire: tokenLength, email: email };
+               
+            if(oTier){
+                oTier.emit('newToken', { expire: tokenLength, email: email });
+            };
+            
         }else{
             log(err);
             cb("Problem Generating token", null);
         };
     });
-
 };
 
 function updateLoginTime(email){
@@ -361,11 +368,32 @@ function updateLoginTime(email){
 };
 
 //Mundane
+function checkToken(token, cb){
+    
+    if(tokenStore){
+        
+        var current = new Date().getTime();
+        
+        if(current > tokenStore[token].expire){
+            
+            cb(false, null);    
+        }else{
+            cb(true, tokenStore[token].email); 
+        };
+    }else{
+        cb(false, null);   
+    };
+};
+
+if(oTier){
+    oTier.on('newToken', function(tokenObj){
+        tokenStore[tokenObj.token] = { expire: tokenObj.expire, email: tokenObj.email };  
+    };
+};
 
 function log(message){
 
-    console.log("\n\n" + message);
-    
+    console.log("\n\n" + message); 
 };
 
 module.exports = api;

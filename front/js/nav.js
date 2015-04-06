@@ -65,15 +65,16 @@ function verifyLogin(){
                         if(returnObj.verified === true){
                             
                             localStorage.setItem('token', returnObj.token);
+                            localStorage.setItem('tokenLength', returnObj.tokenLength);
                             var prevEmail = localStorage.getItem('emailArr');
                             
                             if(prevEmail === null){
                                 var prevEmailArr = [];
-                                prevEmailArr.push( returnObj.email );
+                                prevEmailArr.push( $('#loginEmail').val() );
                                 localStorage.setItem('emailArr', JSON.stringify(prevEmailArr) );
                             }else{
                                 var prevEmailArr = JSON.parse(prevEmail);
-                                prevEmailArr.push( returnObj.email );
+                                prevEmailArr.push( $('#loginEmail').val() );
                                 localStorage.setItem('emailArr', JSON.stringify(prevEmailArr) );
                             };
                             
@@ -100,19 +101,5 @@ function verifyLogin(){
 $('#loginPass').keypress(function(e){
     if(e.which == 13) {
         verifyLogin();
-    }; 
-});
-
-var emailArr = localStorage.getItem('emailArr');
-
-if(emailArr != null){
-    var emails = JSON.parse( emailArr );
-}else{
-    var emails = null;  
-};
-
-$('#loginEmail').keypress(function(e){
-    if(e.which == 13 && emails != null) {
-        
     }; 
 });

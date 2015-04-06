@@ -145,21 +145,27 @@ function startHTTP(){
 
 function startSocket(server){
     
-    var app = io.listen(server);
-    
-    log('Socket - Listening on port: ' + httpPort); 
-    
-    app.sockets.on('connection', function(s){ // s - socket
-        
-        socketCount += 1;
-        
-        s.on('disconnect', function(){
-            socketCount -= 1;
-        });
-        
-        api( s, s3, ddb );
-      
+    startTokenStore(function(tokenStore){
 
+        var app = io.listen(server);
+
+        log('Socket - Listening on port: ' + httpPort); 
+
+        app.sockets.on('connection', function(s){ // s - socket
+
+            socketCount += 1;
+
+            s.on('disconnect', function(){
+                socketCount -= 1;
+            });
+
+            if(oTierConnected === true){
+                api( s, s3, ddb, oTier, tokenStore );
+            }else{
+                api( s, s3, ddb, null, tokenStore);
+            };
+
+        });
     });
     
     startTierSocket();
@@ -196,6 +202,30 @@ function startTierSocket(){
     };
 };
 
+function startTokenStore(cb){
+    
+    var tokenStore = {};
+    
+    setInterval(function(){
+        
+        var current = new Date().getTime();
+        
+        for (var key in tokenStore){
+            
+            if (tokenStore.hasOwnProperty(key)) {
+               
+                if(tokenStore[key].expire != undefined && current > tokenStore[key].expire){
+ 
+                    delete tokenStore[key]; 
+
+                };
+            };
+        };
+        
+    }, 30000);
+    
+    cb(tokenStore);
+};
 
 function updateIP(){
     
