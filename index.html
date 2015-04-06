@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<style>
+		body {
+			background-image: url('circuit.jpg');
+			background-repeat: repeat;
+		}
+		</style>
+		<title>ArchiTech</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	</head>
+<body onload="init()">
+<script>
+	userFirstName=["John"];
+	userLastName=["Doe"];
+	email=["johndoe@aol.com"];
+	pwd=["password"];
+	function init(){
+		document.getElementById("mainPanel").style.display="block";
+		document.getElementById("welcomePanel").style.display="none";
+	}
+	function OnJoin(){
+		var firstName=document.forms["signup"]["firstName"].value;
+		var lastName=document.forms["signup"]["lastName"].value;
+		var pw=document.forms["signup"]["pw"].value;
+		var pw2=document.forms["signup"]["pw2"].value;
+		userFound=false;
+		if (pw==pw2){
+			for(i=0; i < userFirstName.length; i++){
+				if(userFirstName[i]==firstName && userLastName[i]==lastName && pwd[i]==pw){
+					document.getElementById("mainPanel").style.display="none";
+					document.getElementById("welcomePanel").style.display="block";
+					document.getElementById("welcomeMsg").innerHTML="Welcome " + firstName + " " + lastName;
+					document.getElementById("Events").setAttribute("class","");
+					document.getElementById("Market").setAttribute("class","");
+					document.getElementById("Regions").setAttribute("class","");
+					document.getElementById("Labs").setAttribute("class","");
+					document.getElementById("Ip").setAttribute("class","");
+					document.getElementById("Tech").setAttribute("class","");
+					document.getElementById("Articles").setAttribute("class","");
+					document.getElementById("Users").setAttribute("class","");
+					userFound=true;
+				}
+			}
+		}else{
+			alert("passwords don't match.");
+		}
+		if(userFound==false){
+			alert("Login incorrect.");
+		}
+	}
+</script>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12" style="background-color:black">
+			<h1 class="text-info">ArchiTech</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12" style="background-color:black">
+			<ul class="nav nav-pills" roll="tablist" >
+				<li id="Home" class="active"><a href="#">Home</a></li>
+				<li id="Events" class="disabled"><a href="#">Events</a></li>
+				<li id="Market" class="disabled"><a href="#">Market</a></li>
+				<li id="Regions" class="disabled"><a href="#">Regions</a></li>
+				<li id="Labs" class="disabled"><a href="Labs.html">Labs</a></li>
+				<li id="Ip" class="disabled"><a href="#">Intellectual Property</a></li> 
+				<li id="Tech" class="disabled"><a href="Technologies.html">Technology</a></li>   
+				<li id="Articles" class="disabled"><a href="#">Articles</a></li>
+				<li id="Users" class="disabled"><a href="#">Users</a></li>
+		  	</ul>
+		</div>
+	</div>
+	<div class="row">
+  		<div class="col-lg-4">
+  		</div>
+  		<div class="col-lg-4">
+			<div class="panel panel-default">
+				<div id="mainPanel" class="panel-body">
+					<h3 class="text-center"><strong class="text-infoq1">Sign Up</strong></h2>
+					<p>You're intelligent, well connected, and love working with the next generation of entrepreneurs. Join us or regret it.</p>
+					<form role="form" name="signup">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="firstName" class="form-control" id="firstName" placeholder="First Name">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="LastName" class="form-control" id="lastName" placeholder="Last Name">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" id="email" placeholder="Enter email">
+						</div>
+						<div class="form-group">
+							<!--<label for="pwd">Password:</label>-->
+							<input type="password" class="form-control" id="pw" placeholder="Enter password">
+						</div>
+						<div class="form-group">
+							<!--<label for="pwd">Password:</label>-->
+							<input type="password" class="form-control" id="pw2" placeholder="Enter again">
+						</div>
+						<button type="button" onclick="OnJoin()" class="btn btn-default">Join</button>
+					</form>
+				</div>
+				<div id="welcomePanel" class="panel-body">
+					<h3 id="welcomeMsg"></h3>
+				</div>
+			</div>
+  		</div>
+  		<div class="col-lg-4">
+  		</div>
+	</div>
+</div>
+</body>
+</html> 

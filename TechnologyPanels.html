@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<style>
+	body {
+		background-image: url('circuit.jpg');
+		background-repeat: repeat;
+	}
+	.techType {
+		color:white;
+	}
+	</style>
+	<title>ArchiTech</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<script src="/socket.io/socket.io.js"></script>
+	</head>
+	<body onload="LoadTechnology();">
+	<script>
+	// var socket = io.connect("http://localhost");
+	var index = 0;
+	//these variables should be read in from the database
+	var NumRecords = 3;
+	var invest = [false,true,true];
+	var TechType = [0,1,2];
+	var userFollowing = [false,false,true];
+	var technologyDescription=["Critical Event Detection software consists of a patented method and " +
+			"apparatus for detecting and processing anomalies in an industrial control system. The technology " +
+			"works by first learning the history of an entire system (this is history is stored in what it called " + 
+			"the historian of a manufacturing plant). Once the software has had the time to learn the standards " +
+			"the system is supposed to operate under, it", 
+			"This is another description.", "This is another great technology you should buy."];
+	var technologyName=["Event Detection Algorithm","Great Technology","Home Automation"];
+	var technologyDeveloper=["AFRL","LLNL","SNL"];
+	var inventor1=["Jim","Albert Einstein","Nikola Tesla"];
+	var inventor2=["Tyler","",""];
+	var inventor3=["Jordan","",""];
+	var techValue=[0,1932,0];
+	var techValueChange=[0,3.5,0];
+	var totalInvestment=[0,0,735];
+	var numInvestors = [0,0,7];
+	var userAccountBalance=2750;
+	function LoadTechnology() {
+		//alert("LoadTechnology called...");
+		document.getElementById("techPanel").style.display = "block";
+		document.getElementById("investPanel").style.display = "none";
+		var following = "";
+		indexStr=window.location.search;
+		index=Number(indexStr.slice(1));
+		if (index > NumRecords-1){index=0}
+		if (index < 0){index=2}
+		//set userFollow star
+		if (userFollowing[index] == true){
+			following = "    <small><span class='glyphicon glyphicon-star' onclick='OnFollowClick()'></span> Following</small>";
+		}else{
+			following = "    <small><span class='glyphicon glyphicon-star-empty' onclick='OnFollowClick()'></span> Follow</small>";
+		}
+		//set invest option
+		var investButtonHandle = document.getElementById("investButton");
+		if (invest[index] == false){
+			investButtonHandle.setAttribute("type", "hidden");
+		}else{
+			investButtonHandle.setAttribute("type", "button");
+		}
+		//set tech type and tech value
+		techTypeHandle = document.getElementById("techType");
+		switch (TechType[index]){
+			case 0:
+				techTypeHandle.innerHTML = "TECH";
+				techTypeHandle.setAttribute("style","background-color:blue");
+				document.getElementById("techValue").innerHTML="";
+				break;
+			case 1:
+				techTypeHandle.innerHTML = "Pre-ITO";
+				techTypeHandle.setAttribute("style","background-color:orange");
+				percentChange = techValueChange[index]/techValue[index]*100;
+				if (techValueChange[index] > 0){
+					changeText = "<small style=color:green><span class='glyphicon glyphicon-arrow-up'></span> " + techValueChange[index] + 
+					" (" + percentChange.toPrecision(3) + "%)</small>";
+				}
+				else if(techValueChange[index] < 0){
+					changeText = "<small style=color:red><span class='glyphicon glyphicon-arrow-down'></span> " + techValueChange[index] + 
+					" (" + percentChange.toPrecision(3) + "%)</small>";
+				}
+				else{
+					changeText = "<small style=color:red>-- " + techValueChange[index] + 
+					" (" + percentChange.toPrecision(3) + "%)</small>";
+				}
+				document.getElementById("techValue").innerHTML="<b>" + techValue[index] + "</b>" + changeText;
+				break;
+			case 2:
+				techTypeHandle.innerHTML = "ITO";
+				techTypeHandle.setAttribute("style","background-color:green");
+				document.getElementById("techValue").innerHTML="<b>$" + totalInvestment[index] + "</b> from <b>" + 
+					numInvestors[index] + " investors</b>";
+				break;
+		}
+		document.getElementById("technologyName").innerHTML = technologyName[index];
+		document.getElementById("technologyDeveloper").innerHTML = technologyDeveloper[index] + following;
+		document.getElementById("technologyDescription").innerHTML = technologyDescription[index];
+	}
+	function IncIndex(){index=index+1}
+	function DecIndex(){index=index-1}
+	function OnInvestClick(){
+		document.getElementById("investMsg").innerHTML="Invest in " + technologyName[index] + " from " + technologyDeveloper[index];
+		document.getElementById("investPanel").style.display = "block";
+		document.getElementById("techPanel").style.display = "none";
+		document.getElementById("investAccountInfo").innerHTML = "You have <b> $" + userAccountBalance + "</b> remaining in your account."
+	}
+	function OnInvest2Click(){
+		//insert investment information into database
+		//go back to technologies panel
+		document.getElementById("techPanel").style.display = "block";
+		document.getElementById("investPanel").style.display = "none";
+	}
+	function OnInvestCancelClick(){
+		document.getElementById("techPanel").style.display = "block";
+		document.getElementById("investPanel").style.display = "none";
+	}
+	function OnFollowClick(){
+		//update the database to change the user following status
+		if (userFollowing[index]==true){
+			userFollowing[index]=false;
+			LoadTechnology();
+		}
+		else{
+			userFollowing[index]=true;
+			LoadTechnology();
+		}
+	}
+	</script>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12" style="background-color:black">
+				<h1 class="text-info">ArchiTech</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12" style="background-color:black">
+				<ul class="nav nav-pills" roll="tablist">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Events</a></li>
+					<li><a href="#">Market</a></li>
+					<li><a href="#">Regions</a></li>
+					<li class="active"><a href="Labs.html">Labs</a></li>
+					<li><a href="#">Intellectual Property</a></li> 
+					<li><a href="Technologies.html">Technology</a></li>   
+					<li><a href="#">Articles</a></li>
+					<li><a href="#">Users</a></li>         
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+			</div>
+			<div class="col-lg-4" style="background-color:white">
+				<div class="row">
+					<div id="grayspace" class="col-lg-12" style="background-color:lightgray">
+						<br><br><br><br><br>
+						<div class="row">
+							<div class="col-lg-3">
+								<h5><span class="techType" id="techType"></span></h5>
+							</div>
+							<div class="col-lg-9">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="techPanel" class="panel-body" style="background-color:white">
+					<form role="form" action="">
+						<h2 id="technologyName" style="text-align:center"></h2>
+						<h4 id="technologyDeveloper" style="text-align:center"></h4>
+						<h3 id="techValue" style="text-align:center"></h3>
+						<p id="technologyDescription"></p>
+						<div class="row">
+							<div class="col-lg-12">
+								<input type="button" id="investButton" style="background-color:lightgray" class="btn btn-default btn-block" value="Invest" onclick="OnInvestClick()">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="investPanel" class="panel-body">
+					<form role="form">
+						<h3 id="investMsg"></h3>
+						<div class="row">
+							<div class="col-lg-1">
+								<span class="glyphicon glyphicon-usd"></span>
+							</div>
+							<div class="col-lg-5">
+								<input type="text" id="investAmount" class="form-control" placeholder="USD Amount">
+							</div>
+							<div class="col-lg-6">
+							</div>
+						</div>
+						<p id="accountBalanceMsg"></p>
+						<div class="row">
+							<div class="col-lg-6">
+								<input type="button" id="invest2Button" style="background-color:lightgray" class="btn btn-default btn-block" value="Invest" onclick="OnInvest2Click()">
+							</div>
+							<div class="col-lg-6">
+								<input type="button" id="investCancelButton" style="background-color:lightgray" class="btn btn-default btn-block" value="Cancel" onclick="OnInvestCancelClick()">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-4">
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</html>
