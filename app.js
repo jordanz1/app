@@ -169,20 +169,20 @@ function startTierSocket(){
     
     if(tier == "tier1"){
         oTier = io.listen(3000);
-        console.log("Waiting for other tier on port 3000");
+        log("Waiting for other tier on port 3000");
         oTier.sockets.on('connection', function(socket){
             oTierConnected = true;
-            console.log("Other tier connected.");
+            log("Other tier connected.");
             
         });
     }else if(tier == "tier2"){
         //                       CHANGE TO HTTPS
         oTierTestVar = ioClient.connect('http://tier1.' + domain + ":3000");
-        console.log("Attempting connection to other tier on port 3000");
+        log("Attempting connection to other tier on port 3000");
         oTierTestVar.on('connect', function(){
             oTier = oTierTestVar;
             oTierConnected = true;
-            console.log("Other tier connected.");
+            log("Other tier connected.");
         });
     };
 };
