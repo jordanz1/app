@@ -79,15 +79,15 @@ function confAdditions(){
 };
 
 //Post-Setup Functions
-function processConfig(config){
-        
-    startHTTP();  
+function processConfig(config){  
 
     tier = config.tier;
     tierPass= config.tierPass;
     domain = config.domain;
     domainID = config.domainID;
     region = config.region;
+    
+    startHTTP();
     
 //Set up Route 53 as r53
     r53 = new Route53({
