@@ -220,7 +220,7 @@ function startTokenStore(cb){
             if (tokenStore.hasOwnProperty(key)) {
                
                 if(tokenStore[key].expire != undefined && current > tokenStore[key].expire){
- 
+                    log(key.toString() + " has expired. it's time was: " + tokenStore[key].expire.toString() );
                     delete tokenStore[key]; 
 
                 };
