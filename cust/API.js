@@ -388,7 +388,7 @@ function checkToken(token, cb){
 if(oTier){
     oTier.on('newToken', function(tokenObj){
         tokenStore[tokenObj.token] = { expire: tokenObj.expire, email: tokenObj.email };  
-    };
+    });
 };
 
 function log(message){
