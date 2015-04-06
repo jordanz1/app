@@ -81,7 +81,7 @@ function socketTrigger(tierName){
                 
                 var current = new Date().getTime();
                 
-                if(current > tokenLength){
+                if(current > tokenLength+ 50000){
                     
                     window.location.href = "/";
                 }else{

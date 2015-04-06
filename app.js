@@ -179,6 +179,7 @@ function startTierSocket(tokenStore){
         oTierTestVar = io.listen(3000);
         log("Waiting for other tier on port 3000");
         oTierTestVar.sockets.on('connection', function(socket){
+            
             oTierConnected = true;
             oTier = socket;
             log("Other tier connected.");
@@ -188,7 +189,8 @@ function startTierSocket(tokenStore){
             });
             
             oTier.on('newToken', function(tokenObj){
-                tokenStore[tokenObj.token] = { expire: tokenObj.expire, email: tokenObj.email };  
+                tokenStore[tokenObj.token] = { expire: tokenObj.expire, email: tokenObj.email };
+                log("New Token from other tier. " + tokenObj.token);
             });
         });
     }else if(tier == "tier2"){
@@ -196,9 +198,16 @@ function startTierSocket(tokenStore){
         oTierTestVar = ioClient.connect('http://tier1.' + domain + ":3000");
         log("Attempting connection to other tier on port 3000");
         oTierTestVar.on('connect', function(){
+            
             oTier = oTierTestVar;
             oTierConnected = true;
+            
             log("Other tier connected.");
+            
+            oTier.on('newToken', function(tokenObj){
+                tokenStore[tokenObj.token] = { expire: tokenObj.expire, email: tokenObj.email };
+                log("New Token from other tier. " + tokenObj.token);
+            });
             
             oTier.on('disconnect', function(){
                 log("Other Tier Disconnected."); 
