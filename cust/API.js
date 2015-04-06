@@ -259,7 +259,7 @@ function loginAPI(){
                                         
                                         var tokenExpire = new Date().getTime() + tokenLength;
                                         
-                                        oTierAPI.emit('newToken', { token: token, email: email, expire: tokenExpire });
+                                        //oTierAPI.emit('newToken', { token: token, email: email, expire: tokenExpire });
 
                                         updateLoginTime(loginObj.email);
                                     }else{
