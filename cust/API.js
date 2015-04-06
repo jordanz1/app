@@ -328,7 +328,7 @@ function handleToken(email, cb){
             
             var tokenLength = new Date().getTime + length;
             
-            cb(null, token,  ); 
+            cb(null, token, tokenLength ); 
             
             tokenStore[token] = { expire: tokenLength, email: email };
                
