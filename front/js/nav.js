@@ -5,9 +5,7 @@ function moveToSearch(){
 }
 
 $('#search-button').click(function(){
-    moveToSearch();
-    
-    
+    moveToSearch(); 
 });
 
 $('#search').keypress(function(e){

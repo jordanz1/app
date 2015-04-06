@@ -254,7 +254,7 @@ function loginAPI(){
 
                                         s.emit('verifyLoginResult', { verified: true, userType: type, token: token, tokenLength: tokenLength } );
                                         
-                                        console.log(tokenExpire);
+                                        console.log(tokenLength);
                                         console.log(token);
                                         //oTierAPI.emit('newToken', { token: token, email: email, expire: tokenExpire });
 
@@ -367,6 +367,9 @@ function updateLoginTime(email){
     });
 };
 
+function adminAPI(){
+    
+};
 //Mundane
 function checkToken(token, cb){
     
@@ -385,11 +388,6 @@ function checkToken(token, cb){
     };
 };
 
-if(oTier){
-    oTier.on('newToken', function(tokenObj){
-        tokenStore[tokenObj.token] = { expire: tokenObj.expire, email: tokenObj.email };  
-    });
-};
 
 function log(message){
 

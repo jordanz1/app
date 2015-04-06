@@ -68,10 +68,10 @@ function socketTrigger(tierName){
     s.on('connect', function(){
         
         connected = true;
-        if(pageType != null){
+        if(pageType){
             s.emit('pageType', pageType);
         };
-        if(token != null){
+        if(token){
             s.emit('tokenCheck', token);   
         }
     });   

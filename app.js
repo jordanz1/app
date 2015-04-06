@@ -176,14 +176,19 @@ function startTierSocket(){
     log("I am: " + tier + ". Doing appropriate other tier commands.");
     
     if(tier == "tier1"){
-        oTier = io.listen(3000);
+        oTierTestVar = io.listen(3000);
         log("Waiting for other tier on port 3000");
-        oTier.sockets.on('connection', function(socket){
+        oTierTestVar.sockets.on('connection', function(socket){
             oTierConnected = true;
+            oTier = socket;
             log("Other tier connected.");
             
             socket.on('disconnect', function(){
                 log("Other Tier Disconnected."); 
+            });
+            
+            oTier.on('newToken', function(tokenObj){
+                tokenStore[tokenObj.token] = { expire: tokenObj.expire, email: tokenObj.email };  
             });
         });
     }else if(tier == "tier2"){
