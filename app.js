@@ -162,7 +162,7 @@ function startSocket(server){
 
     });
     
-    startTierSocket();
+    //startTierSocket();
 };
 
 function startTierSocket(){
@@ -171,7 +171,7 @@ function startTierSocket(){
         oTier = io.listen(3000);
         
         oTier.sockets.on('connection', function(socket){
-            
+            oTierConnected = true;
             console.log("Other tier connected.");
             
         });
@@ -181,6 +181,7 @@ function startTierSocket(){
         
         oTierTestVar.on('connect', function(){
             oTier = oTierTestVar;
+            oTierConnected = true;
             console.log("Other tier connected.");
         });
     };
