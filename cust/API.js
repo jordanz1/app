@@ -4,13 +4,15 @@ var async = require('async');
 
 var start = new Date().getTime();
 
-var s, s3, ddb, oTier;
+var s, s3, ddb, oTier, tokenStore;
 
-function api( sAPI, s3API, ddbAPI, oTierAPI ){
+function api( sAPI, s3API, ddbAPI, oTierAPI, tokenStoreAPI ){
     
     s = sAPI;
     s3 = s3API;
     ddb = ddbAPI;
+    oTier = oTierAPI;
+    tokenStore = tokenStoreAPI;
     
     if(oTierAPI != null){
         oTier = oTierAPI;  
