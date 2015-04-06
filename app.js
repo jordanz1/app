@@ -188,10 +188,10 @@ function startTierSocket(){
             oTier = oTierTestVar;
             oTierConnected = true;
             log("Other tier connected.");
-        });
-        
-        oTier.on('disconnect', function(){
-            log("Other Tier Disconnected."); 
+            
+            oTier.on('disconnect', function(){
+                log("Other Tier Disconnected."); 
+            });
         });
     };
 };
