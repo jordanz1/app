@@ -146,7 +146,9 @@ function startHTTP(){
 function startSocket(server){
     
     startTokenStore(function(tokenStore){
-
+            
+        startTierSocket(tokenStore);
+        
         var app = io.listen(server);
 
         log('Socket - Listening on port: ' + httpPort); 
@@ -167,11 +169,9 @@ function startSocket(server){
 
         });
     });
-    
-    startTierSocket();
 };
 
-function startTierSocket(){
+function startTierSocket(tokenStore){
     
     log("I am: " + tier + ". Doing appropriate other tier commands.");
     
