@@ -1,3 +1,5 @@
+var store = Rhaboo.persistent('architech');
+
 function moveToSearch(){
     window.location.href = "/search/?q=" + $('#search').val() ;
 }
@@ -42,12 +44,6 @@ $(document).ready(function() {
 });
 
 
-Storage.prototype.pushItem = function(arrayName,arrayItem) {
-  var existingArray = this.getArray(arrayName);
-  existingArray.push(arrayItem);
-  this.setItem(arrayName,JSON.stringify(existingArray));
-};
-
 
 function verifyLogin(){
     
@@ -68,9 +64,8 @@ function verifyLogin(){
                         
                         if(returnObj.verified === true){
                             
-                            localStorage.setItem('token', returnObj.token);
-                            localStorage.setItem('interest', returnObj.userType);
-                            localStorage.pushItem('emailArr', returnObj.email);
+                            store.token = returnObj.token;
+                            store.emails.push( returnObj.email );
                             
                             window.location.href = "/" + returnObj.userType + "/";
                         }else{

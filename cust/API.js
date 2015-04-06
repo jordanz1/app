@@ -251,7 +251,6 @@ function loginAPI(){
 
                                 handleToken(loginObj.email, function(err, token){
                                     if(!err){
-                                        console.log(token);
 
                                         s.emit('verifyLoginResult', { verified: true, userType: type, token: token, email: loginObj.email } );
                                         
@@ -259,6 +258,8 @@ function loginAPI(){
                                         
                                         var tokenExpire = new Date().getTime() + tokenLength;
                                         
+                                        console.log(tokenExpire);
+                                        console.log(token);
                                         //oTierAPI.emit('newToken', { token: token, email: email, expire: tokenExpire });
 
                                         updateLoginTime(loginObj.email);

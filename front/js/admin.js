@@ -1,15 +1,8 @@
-Storage.prototype.getArray = function(arrayName) {
-  var thisArray = [];
-  var fetchArrayObject = this.getItem(arrayName);
-  if (typeof fetchArrayObject !== 'undefined') {
-    if (fetchArrayObject !== null) { thisArray = JSON.parse(fetchArrayObject); }
-  }
-  return thisArray;
-}
+var store = Rhaboo.persistent('architech');
 
-var token = localStorage.getItem('token');
+var token = store.token;
 
-var emails = localStorage.getArray('emailArr');
+var emails = store.emails;
         
 $('h1').text(emails[0]);
     
