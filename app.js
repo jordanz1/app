@@ -167,6 +167,8 @@ function startSocket(server){
 
 function startTierSocket(){
     
+    log("I am: " + tier + ". Doing appropriate other tier commands.");
+    
     if(tier == "tier1"){
         oTier = io.listen(3000);
         log("Waiting for other tier on port 3000");
