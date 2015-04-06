@@ -346,15 +346,15 @@ function getLoginDetails(email, cb){
 };
 
 function handleToken(email, cb){
-    var TOKEN_LENGTH = 48;
+    var TOKEN_BYTE_LENGTH = 48;
  
     
-    crypto.randomBytes(TOKEN_LENGTH, function(err, buff) {
+    crypto.randomBytes(TOKEN_BYTE_LENGTH, function(err, buff) {
         var token = buff.toString('hex');
         
         if(!err){
             
-            var length = 240000;
+            var length = 300;
             
             var tokenLength = new Date().getTime() + length;
             

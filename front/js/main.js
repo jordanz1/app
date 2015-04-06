@@ -98,7 +98,7 @@ function socketTrigger(tierName){
                                 window.location.href = "/";  
                             };
                             
-                        };
+                        });
                         
                     }else{
 
