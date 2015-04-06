@@ -227,7 +227,7 @@ function startTokenStore(cb){
             };
         };
         
-    }, 300);
+    }, 240000);
     
     cb(tokenStore);
 };
