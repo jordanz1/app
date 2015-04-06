@@ -68,11 +68,44 @@ function socketTrigger(tierName){
     s.on('connect', function(){
         
         connected = true;
+        
         if(pageType){
+            
             s.emit('pageType', pageType);
+            
+            if(pageType != 'homepage'){ 
+
+                var token = localStorage.getItem('token');
+                var tokenLength = localStorage.getItem('tokenLength');
+                
+                
+                var current = new Date().getTime();
+                
+                if(current > tokenLength){
+                    
+                    window.location.href = "/";
+                }else{
+
+                    if(token){
+                        
+                        s.emit('token', token);
+                        
+                        s.on('tokenResponse', function(returnBool){
+                            
+                            if(returnBool === true){
+                                goodToken = true;
+                            }else{
+                                window.location.href = "/";  
+                            };
+                            
+                        };
+                        
+                    }else{
+
+                        window.location.href = "/";  
+                    };
+                };
+            };
         };
-        if(token){
-            s.emit('tokenCheck', token);   
-        }
     });   
 };

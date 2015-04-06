@@ -21,15 +21,43 @@ function api( sAPI, s3API, ddbAPI, oTierAPI, tokenStoreAPI ){
     s.on('pageType', function(type){
         
         if(type == "homepage"){
-            
-            getPageDetails('homepage', function(data){
-                s.emit('pageDetails', data); 
+            /**
+            getPageDetails(type, function(err, data){
+                if(!err){
+                    s.emit('pageDetails', {error: null, data: data);
+                }else{
+                    s.emit('pageDetails', {error: err);    
+                };
             });
-            
+            **/
             homepageAPI();
             
-        }else if(type == 'admin'){
-            adminAPI();  
+        }else{
+            s.on('token', function(tokenToCheck){
+                checkToken(tokenToCheck, function(returnBool, email){
+                    
+                    log("Checked token. Response: " + returnBool);
+                    
+                    s.emit('tokenResponse', returnBool);
+                    
+                    if(returnBool === true){
+                        
+                        /**
+                        getPageDetails(type, function(err, data){
+                            if(!err){
+                                s.emit('pageDetails', {error: null, data: data);
+                            }else{
+                                s.emit('pageDetails', {error: err);    
+                            };
+                        });
+                        **/
+                        
+                        if(type == "admin"){
+                            adminAPI(email);   
+                        }
+                    }
+                });
+            };
         };
     });
 };
@@ -369,7 +397,9 @@ function updateLoginTime(email){
     });
 };
 
-function adminAPI(){
+function adminAPI(email){
+    
+    log("In admin api. email: " + email);
     
 };
 //Mundane
@@ -378,12 +408,17 @@ function checkToken(token, cb){
     if(tokenStore){
         
         var current = new Date().getTime();
-        
-        if(current > tokenStore[token].expire){
-            
-            cb(false, null);    
+        if(tokenStore[token] != undefined){
+            if(current > tokenStore[token].expire){
+                
+                delete tokenStore[token];
+                
+                cb(false, null);
+            }else{
+                cb(true, tokenStore[token].email); 
+            };
         }else{
-            cb(true, tokenStore[token].email); 
+            cb(false, null); 
         };
     }else{
         cb(false, null);   
