@@ -86,7 +86,7 @@ function homepageAPI(){
     s.on('autocomplete', function(query){
         console.log(query);
    
-        s.emit('autocompleteResult', {name: "You typed something, right?", link: '#' );
+        s.emit('autocompleteResult', {name: "You typed something, right?", link: '#' });
     });
     
     loginAPI(); //since your on the homepage, start the login api, because you log in on the homepage.

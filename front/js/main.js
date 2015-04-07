@@ -15,6 +15,16 @@ function tierTrigger(){
         compareCount('tier2', numbOfSockets);
     });
     
+    setTimeout(function(){
+        if(connected === false ){
+            if(pageType != "homepage"){
+                window.location.href = "/";
+            }else{
+                setTimeout(tierTrigger, 2000);  
+            };
+        };
+    }, 3000);
+    
 };
 
 function getSocketCount(tier, cb){
@@ -94,7 +104,7 @@ function socketTrigger(tierName){
                         if(token){
 
                             s.emit('token', token);
-
+                            
                             s.on('tokenResponse', function(returnBool){
 
                                 if(returnBool === true){
