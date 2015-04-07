@@ -45,9 +45,9 @@ panic.location('./logs');
 //Set location to look for configuration variables
 conf.location('/info/', function(err){
     
-    if(err){
+    if(err){ //If you encounter an error, panic exit.
         panic.exit(err);  
-    }else{
+    }else{ //Otherwise continue
         confAdditions();  
     };
 });
@@ -71,22 +71,24 @@ function confAdditions(){
     conf(function(err, confObj){
         
         if(err){
-            panic.exit(err);
+            panic.exit(err); //If you encounter an error, panic exit.
         }else{
-            processConfig(confObj);  
+            processConfig(confObj);  //Otherwise process your config object
         };
     });
 };
 
 //Post-Setup Functions
 function processConfig(config){  
-
+	
+	//Officially set global variables
     tier = config.tier;
     tierPass= config.tierPass;
     domain = config.domain;
     domainID = config.domainID;
     region = config.region;
     
+	//Start your http, socket, and other tier socket servers asynchronously for fast startup.
     startHTTP();
     
 //Set up Route 53 as r53
@@ -96,7 +98,7 @@ function processConfig(config){
     });
     
     updateIP();
-//Set up DynamoDB as ddb
+//Set up AWS SDK's DynamoDB as ddb
     
     AWS.config.update({region: 'us-east-1'});
     
@@ -116,7 +118,7 @@ function processConfig(config){
 
 function startHTTP(){
     
-    var server = http.createServer(function(req, res){
+    var server = http.createServer(function(req, res){ //start http server to relay # of socket connections
         
         // send response
         res.writeHead(200, {
@@ -124,47 +126,47 @@ function startHTTP(){
             "content-type": "application/json"
         });
         
-        // this is trickery specific to JSONP,
-        //     see below for more info
+        // this is trickery specific to JSONP
         var query = url.parse(req.url, true).query;
         
+		//Send callback with # of sockets
         res.end(query.callback + "(" + socketCount.toString() + ")");
     });
     
-    server.listen(httpPort, function(err){
+    server.listen(httpPort, function(err){ //listen on http port (80)
         if(err){
-            panic.exit(err);
+            panic.exit(err); //if you encounter an err, panic exit. this is needed.
         }else{        
         
-            log('HTTP - Listening on port: ' + httpPort);   
+            log('HTTP - Listening on port: ' + httpPort);  //otherwise log that you're listening now.
         };
     });
     
-    startSocket(server);
+    startSocket(server); //asynchronously start socket server 
 };
 
-function startSocket(server){
+function startSocket(server){ //starts client socket server
     
-    startTokenStore(function(tokenStore){
+    startTokenStore(function(tokenStore){ //create your auth token store
             
-        startTierSocket(tokenStore);
+        startTierSocket(tokenStore); //start your 'Other Tier' socket commands.
         
-        var app = io.listen(server);
+        var app = io.listen(server); //listen on your http port
 
-        log('Socket - Listening on port: ' + httpPort); 
+        log('Socket - Listening on port: ' + httpPort); //log that you're listening
 
-        app.sockets.on('connection', function(s){ // s - socket
+        app.sockets.on('connection', function(s){ // s - your socket
 
-            socketCount += 1;
+            socketCount += 1; //increase # of sockets on connection
 
-            s.on('disconnect', function(){
+            s.on('disconnect', function(){ //decrease # of sockets on disconnect
                 socketCount -= 1;
             });
 
             if(oTierConnected === true){
-                api( s, s3, ddb, oTier, tokenStore );
+                api( s, s3, ddb, oTier, tokenStore ); //if your other tier is connected, start api with 'oTier'
             }else{
-                api( s, s3, ddb, null, tokenStore);
+                api( s, s3, ddb, null, tokenStore); //otherwise start it with 'oTier' as null
             };
 
         });
@@ -173,9 +175,10 @@ function startSocket(server){
 
 function startTierSocket(tokenStore){
     
-    log("I am: " + tier + ". Doing appropriate other tier commands.");
+    log("I am: " + tier + ". Doing appropriate other tier commands."); //log tier name and that you're starting your tier commands. for dev only.
     
-    if(tier == "tier1"){
+    if(tier == "tier1"){ //if you're tier1, listen
+		
         oTierTestVar = io.listen(3000);
         log("Waiting for other tier on port 3000");
         oTierTestVar.sockets.on('connection', function(socket){
@@ -193,10 +196,13 @@ function startTierSocket(tokenStore){
                 log("New Token from other tier. " + tokenObj.token);
             });
         });
-    }else if(tier == "tier2"){
+    }else if(tier == "tier2"){ //if you're tier2, connect to tier1
+	
         //                       CHANGE TO HTTPS
-        oTierTestVar = ioClient.connect('http://tier1.' + domain + ":3000");
+        oTierTestVar = ioClient.connect('http://tier1.' + domain + ":" + tierPort);
+		
         log("Attempting connection to other tier on port 3000");
+		
         oTierTestVar.on('connect', function(){
             
             oTier = oTierTestVar;
@@ -218,9 +224,9 @@ function startTierSocket(tokenStore){
 
 function startTokenStore(cb){
     
-    var tokenStore = {};
+    var tokenStore = {}; //declare your tokenSTore object
     
-    setInterval(function(){
+    setInterval(function(){ //set interval to check for expired tokens every 30 minutes
         
         var current = new Date().getTime();
         
@@ -236,12 +242,12 @@ function startTokenStore(cb){
             };
         };
         
-    }, 240000);
+    }, 30000);
     
     cb(tokenStore);
 };
 
-function updateIP(){
+function updateIP(){ //In short... if your IP isn't what your tier name's dns returns, update the dns record for your tier name
     
     var oneOff = false;
     

@@ -8,39 +8,41 @@ var s, s3, ddb, oTier, tokenStore;
 
 function api( sAPI, s3API, ddbAPI, oTierAPI, tokenStoreAPI ){
     
+	//Assign your global variables from your local function vars
     s = sAPI;
     s3 = s3API;
     ddb = ddbAPI;
     oTier = oTierAPI;
     tokenStore = tokenStoreAPI;
     
-    if(oTierAPI != null){
-        oTier = oTierAPI;  
-    };
+    //oTier has the possibility of being null.
+    oTier = oTierAPI;  
+
     
-    s.on('pageType', function(type){
+    s.on('pageType', function(type){ //pageType is always sent upon successful client connect
         
-        if(type == "homepage"){
+        if(type == "homepage"){ //homepage (original index.html) is the only page that doesn't require a token.
             /**
-            getPageDetails(type, function(err, data){
+            getPageDetails(type, function(err, data){ //this function will acquire your pageType's dynamic content.
                 if(!err){
-                    s.emit('pageDetails', {error: null, data: data);
+                    s.emit('pageDetails', {error: null, data: data); 
                 }else{
                     s.emit('pageDetails', {error: err);    
                 };
             });
             **/
-            homepageAPI();
+            homepageAPI(); //Start the homepage api for other incoming socket events.
             
         }else{
-            s.on('token', function(tokenToCheck){
-                checkToken(tokenToCheck, function(returnBool, email){
+            s.on('token', function(tokenToCheck){ //on event 'token' start a function with your token.
+				
+                checkToken(tokenToCheck, function(returnBool, email){ //function that checks your token. if false, email is null.
                     
-                    log("Checked token. Response: " + returnBool);
+                    log("Checked token. Response: " + returnBool); //for DEV, logs that you checked a token. and your boolean.
                     
-                    s.emit('tokenResponse', returnBool);
+                    s.emit('tokenResponse', returnBool); //emit your response's boolean to the client.
                     
-                    if(returnBool === true){
+                    if(returnBool === true){ //if you were sucessful, get page details && start your appropriate api with your found email.
                         
                         /**
                         getPageDetails(type, function(err, data){
@@ -71,10 +73,11 @@ function getPageDetails(type, cb){
 };  
 
 function homepageAPI(){
-                //Sends back autocomplete search results 
-            //s.emit('searchAutoResults', [{'name':'', 'link':''}]);
+        
+		//Sends back autocomplete search results 
+        //s.emit('searchAutoResults', [{'name':'', 'link':''}]);
     
-    s.on('signUpSubmit', function(userObj){
+    s.on('signUpSubmit', function(userObj){ 
 
         submitSignup(userObj);
 
@@ -82,13 +85,11 @@ function homepageAPI(){
     
     s.on('autocomplete', function(query){
         console.log(query);
-        
-        
-        
-        s.emit('autocompleteResult', "You typed something, right?" );
+   
+        s.emit('autocompleteResult', {name: "You typed something, right?", link: '#' );
     });
     
-    loginAPI();
+    loginAPI(); //since your on the homepage, start the login api, because you log in on the homepage.
 };
 
 //HOMEPAGE
@@ -116,7 +117,7 @@ function submitSignup(data){
             var width = current - updated;
 
             
-            if( width < 700){
+            if( width < 700){ //if you have attempted to push a new signup before 700 milliseconds, wait and try the func again
                 
                 var randomNumb = Math.floor((Math.random() * 100) + 1);
                 
@@ -132,13 +133,14 @@ function submitSignup(data){
                         
                 }, timeToWait);
                 
-            }else{
+            }else{ //otherwise, proceed
                 
-                var amount = parseInt(res.Items[0].amount.N) + 1;
+                var amount = parseInt(res.Items[0].amount.N) +1; //amount of items in table +1
 
-                var newSignupId = amount.toString();
+                var newSignupId = amount.toString(); //push your new amount to a string
 
-                var item = {
+                var item = { //items to push to the table, except password
+					
                     id: {'S': newSignupId},
                     email: {'S': data.email.toLowerCase()},
                     interest: {'S': data.interest.toLowerCase()},
@@ -146,30 +148,34 @@ function submitSignup(data){
                     lastName: {'S': data.lastName.toLowerCase()},
                 }
 
-                bcrypt.genSalt(13, function(err, salt){
+                bcrypt.genSalt(13, function(err, salt){ //create salt for your hash password and store that
 
-                    if(err){
+                    if(err){ //if err, return that your signup was invalid and log err
+						
                         log(err);
                         s.emit('signUpReceived', false);
                     }else{
 
-                        bcrypt.hash(data.password, salt, function(err, hash){
-                            if(err){
+                        bcrypt.hash(data.password, salt, function(err, hash){ //hash password and store that
+							
+                            if(err){ //if err, return that your signup was invalid and log err
                                 
                                 log(err);
                                 s.emit('signUpReceived', false);
                             }else{
 
-                                item.password = {'S': hash.toString() };
+                                item.password = {'S': hash.toString() }; //add your password to your signup item
 
-                                ddb.putItem({
+                                ddb.putItem({ //update your table using putTtem
                                     
                                      'TableName': 'signup',
-                                     'Item': item
-                                }, function(err) {
+                                     'Item': item //item is your object with signup data
+									 
+                                }, function(err) { //putItem callback function
+									
                                      if(err){
+										 
                                         s.emit('signUpReceived', false);
-                                         
                                         log(err);  
                                      }else{
 
