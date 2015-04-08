@@ -338,6 +338,7 @@ function getLoginDetails(email, cb){
 
         if(!err){
             try{
+                log(res.Items['0'].password.S + "\n" + res.Items['0'].type.S);
                 cb(null, res.Items['0'].password.S, res.Items['0'].type.S );
             }catch(err){
                 cb("Either your email or password were incorrect.", null, null);
